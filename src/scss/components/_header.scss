@@ -12,6 +12,9 @@
     align-items: center;
     justify-content: space-between;
 
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
     .text-box {
       padding: 0 0 0 5px;
     }
@@ -75,10 +78,13 @@
 
   &_bottom {
     margin: 10px 0;
-    button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    a {
+        text-align: center;
+    }
+    .list-group {
+      @media (max-width: 1024px) {
+        flex-direction: column;
+      }
     }
   }
 }

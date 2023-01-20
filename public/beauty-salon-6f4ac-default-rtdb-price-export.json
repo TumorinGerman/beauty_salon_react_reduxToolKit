@@ -1,0 +1,100 @@
+[
+  { 
+    "id": 0,
+    "name": "Masaż klasyczny",
+    "services": [
+      { "name": "Masaż klasyczny  twarz, szyja, dekolt + ampułka i maska kremowa oraz maska z algami",
+        "price": 100
+      },
+      {
+        "name": "Masaż klasyczny  twarz, szyja, dekolt + serum i maska kremowa", 
+        "price": 70
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Mezoterapia igłowa",
+    "services": [
+      { "name": "okolica oczu", 
+        "price": 100
+      },
+      {
+        "name": "skóra głowy", 
+        "price": 100
+      },
+      {
+        "name": "twarz", 
+        "price": 150
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Mezoterapia mikroigłowa",
+    "services": [
+      { "name": "okolica oczu", 
+        "price": 80
+      },
+      {
+        "name": "twarz", 
+        "price": 100
+      },
+      {
+        "name": "twarz+szyja", 
+        "price": 150
+      },
+      {
+        "name": "twarz+szyja+dekolt", 
+        "price": 200
+      }
+    ]
+  },
+  { 
+    "id": 3,
+    "name": "Peeling kawitacyjny",
+    "services": [
+      { "name": "Peeling kawitacyjny twarz, szyja, dekolt + ampułka i maska kremowa oraz maska z algami",
+        "price": 150
+      },
+      {
+        "name": "Peeling kawitacyjny twarz, szyja, dekolt + serum i maska kremowa", 
+        "price": 100
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Peelingi chemiczne",
+    "services": [
+      { "name": "BioRePeel", 
+        "price": 130
+      },
+      {
+        "name": "Kwas azelainowy 20%", 
+        "price": 100
+      },
+      {
+        "name": "Kwas migdałowy 30%", 
+        "price": 100
+      },
+      {
+        "name": "Kwas mlekowy 30%", 
+        "price": 120
+      },
+      {
+        "name": "PRX T33", 
+        "price": 150
+      }
+    ]
+  },
+  { 
+    "id": 5,
+    "name": "Zabiegi złuszczające",
+    "services": [
+      { "name": "Retix C",
+        "price": 140
+      }
+    ]
+  }
+]
