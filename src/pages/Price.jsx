@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 
+import getPriceFireStore from "../services/firebase/getPrice";
+
 const Price = () => {
   const [priceList, setPriceList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const getPrice = async () => {
     try {
-      const { data } = await axios.get(
-        "https://beauty-salon-6f4ac-default-rtdb.europe-west1.firebasedatabase.app/price.json?print=pretty"
-      );
+      const data = await getPriceFireStore();
+      console.log(data);
       setPriceList(data);
       setIsLoaded(true);
     } catch (error) {
@@ -29,31 +30,33 @@ const Price = () => {
 
   return (
     <div className="container">
-      <Table bordered hover>
-        <thead>
-          <tr>
-            <th>Zabieg</th>
-            <th>Rodzaje zabiegów</th>
-            <th>Cena</th>
-          </tr>
-        </thead>
-        <tbody>
-          {priceList.map(({ name, services }) => (
-            <React.Fragment>
-              <tr>
-                <td colSpan={3}>{name}</td>
-              </tr>
-              {services.map(({ name, price }) => (
-                <tr>
-                  <td></td>
-                  <td>{name}</td>
-                  <td>{price}</td>
+      <div className="price">
+        <Table bordered hover>
+          <thead>
+            <tr className="price_header">
+              <th>Zabieg</th>
+              <th>Rodzaje zabiegów</th>
+              <th>Cena</th>
+            </tr>
+          </thead>
+          <tbody>
+            {priceList.map(({ title, services }) => (
+              <React.Fragment key={title}>
+                <tr className="price_title">
+                  <td colSpan={3}>{title}</td>
                 </tr>
-              ))}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </Table>
+                {services.map(({ id, name, price }) => (
+                  <tr key={id}>
+                    <td></td>
+                    <td>{name}</td>
+                    <td>{price}</td>
+                  </tr>
+                ))}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };
