@@ -1,3 +1,23 @@
+
+# Technology stack:
+- React
+- Redux Toolkit
+- React Router
+- React bootstrap
+- SCSS
+- Backend Firebase
+
+# Goal of the project
+Website for my wife. Internet service for advertising and ordering beauty services.
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
