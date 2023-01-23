@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
-import axios from "axios";
 
 import getPriceFireStore from "../services/firebase/getPrice";
 
@@ -11,7 +10,6 @@ const Price = () => {
   const getPrice = async () => {
     try {
       const data = await getPriceFireStore();
-      console.log(data);
       setPriceList(data);
       setIsLoaded(true);
     } catch (error) {

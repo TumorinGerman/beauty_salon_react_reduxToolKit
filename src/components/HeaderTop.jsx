@@ -52,9 +52,11 @@ const HeaderTop = () => {
           <p>+48 555 555 555</p>
         </div>
       </div>
-      <div className="lang-box">
-        <p>Polski</p>
-      </div>
+      <Link to="/login">
+        <div className="login-box">
+          <p>Login</p>
+        </div>
+      </Link>
     </>
   );
 };

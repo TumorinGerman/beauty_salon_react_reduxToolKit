@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Price from "./pages/Price";
+import FirebaseLogin from "./services/firebase/FirebaseLogin";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/price" element={<Price />} />
+          <Route path="/login" element={<FirebaseLogin />} />
         </Routes>
       </div>
     </div>
