@@ -13,17 +13,6 @@ function CarouselOfServices() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="./img/services/piling.jpg"
-          alt="piling"
-        />
-        <Carousel.Caption>
-          <h3>Peeling</h3>
-          <p>chemiczny, kawitacyjny</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
           src="./img/services/mezaterapia.jpg"
           alt="mezaterapia"
         />
@@ -31,6 +20,17 @@ function CarouselOfServices() {
         <Carousel.Caption>
           <h3>Mezoterapia</h3>
           <p>igłowa, microigłowa</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="./img/services/piling.jpg"
+          alt="piling"
+        />
+        <Carousel.Caption>
+          <h3>Peeling</h3>
+          <p>chemiczny, kawitacyjny</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>

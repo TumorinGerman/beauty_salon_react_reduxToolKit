@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import createUserWithEmail from "./utils/createUserWithEmail";
-import { auth } from "./firebase_config";
+import createUserWithEmail from "../services/firebase/utils/createUserWithEmail";
 
-const FirebaseLogin = () => {
-  const [values, setValues] = React.useState({
+const CreateNewClient = () => {
+  const [values, setValues] = useState({
     email: "",
     password: "",
   });
@@ -13,7 +12,7 @@ const FirebaseLogin = () => {
   const submitHandle = (e) => {
     e.preventDefault();
     const { email, password } = values;
-    createUserWithEmail(auth, email, password);
+    createUserWithEmail(email, password);
   };
 
   const changeEmailHandle = (e) => {
@@ -30,6 +29,11 @@ const FirebaseLogin = () => {
     });
   };
 
+  const inputEmail = useRef(null);
+  useEffect(() => {
+    inputEmail.current.focus();
+  }, []);
+
   return (
     <div className="container">
       <Form>
@@ -39,6 +43,7 @@ const FirebaseLogin = () => {
             type="email"
             placeholder="Enter email"
             value={values.email}
+            ref={inputEmail}
             onChange={changeEmailHandle}
           />
           <Form.Text className="text-muted">
@@ -63,4 +68,4 @@ const FirebaseLogin = () => {
   );
 };
 
-export default FirebaseLogin;
+export default CreateNewClient;

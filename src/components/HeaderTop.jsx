@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import FirebaseLogin from "./FirebaseLogin";
 
 const HeaderTop = () => {
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
+  const handleShowLoginForm = () => setShowLoginForm(true);
+
   return (
     <>
       <Link to="/">
@@ -52,11 +58,20 @@ const HeaderTop = () => {
           <p>+48 555 555 555</p>
         </div>
       </div>
-      <Link to="/login">
-        <div className="login-box">
-          <p>Login</p>
+      <div className="login-box">
+        <div className="container_login">
+          <Button variant="success" onClick={handleShowLoginForm}>
+            Login
+          </Button>
         </div>
-      </Link>
+        <Link to="/create_new_client">Registration New</Link>
+      </div>
+      {showLoginForm ? (
+        <FirebaseLogin
+          show={showLoginForm}
+          setShowLoginForm={setShowLoginForm}
+        />
+      ) : null}
     </>
   );
 };

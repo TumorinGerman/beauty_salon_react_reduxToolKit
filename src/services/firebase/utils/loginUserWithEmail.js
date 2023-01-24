@@ -1,19 +1,21 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const createUserWithEmail = (email, password) => {
+const loginUser = (email, password) => {
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
+
+  return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
+      return user;
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode);
       alert(errorMessage);
+      return null;
     });
 };
 
-export default createUserWithEmail;
+export default loginUser;
