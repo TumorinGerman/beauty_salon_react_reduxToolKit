@@ -61,10 +61,6 @@
       }
     }
           
-    .login-box {
-
-    }
-
   }
 
   &_bottom {
@@ -76,6 +72,13 @@
       @media (max-width: 1024px) {
         flex-direction: column;
       }
+      button {
+        text-align: center;
+      }
+      a {
+        color: $black;
+        text-decoration: none;
+    }
     }
   }
 }

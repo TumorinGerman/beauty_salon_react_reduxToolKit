@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
+import { Link } from "react-router-dom";
 
 const HeaderMenu = () => {
-  const [activeLink, setActiveLink] = useState("/");
   const menuItems = [
     { id: 0, name: "Informacja", link: "/" },
     { id: 1, name: "Zabiegi", link: "/" },
@@ -11,26 +11,13 @@ const HeaderMenu = () => {
     { id: 4, name: "Кontakty", link: "/" },
   ];
 
-  const changePage = (id) => {
-    const currMenu = menuItems.filter((obj) => {
-      return obj.id === id;
-    });
-    setActiveLink(currMenu[0].link);
-  };
-
   return (
     <div className="main_menu">
       <ListGroup horizontal>
-        {menuItems.map(({ id, name }) => {
+        {menuItems.map(({ id, name, link }) => {
           return (
-            <ListGroup.Item
-              action="true"
-              href={activeLink}
-              variant="success"
-              key={id}
-              onClick={() => changePage(id)}
-            >
-              {name}
+            <ListGroup.Item action="true" href="" variant="success" key={id}>
+              <Link to={link}>{name}</Link>
             </ListGroup.Item>
           );
         })}

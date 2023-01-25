@@ -39,7 +39,6 @@ const FirebaseLogin = ({ show, setShowLoginForm }) => {
     if (loginedUser) {
       dispatch(userLogining(loginedUser.uid));
     }
-    console.log(loginedUser);
     setShowLoginForm(false);
   };
 

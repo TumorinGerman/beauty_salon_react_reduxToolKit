@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import FirebaseLogin from "./FirebaseLogin";
+import LogOut from "../services/firebase/utils/LogOut";
+import { userLogOut } from "../redux/slices/userSlice";
 
 const HeaderTop = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
 
+  const dispatch = useDispatch();
+  const isUserLogined = useSelector((state) => state.userAuth.isLogined);
+  console.log(isUserLogined);
+
   const handleShowLoginForm = () => setShowLoginForm(true);
+
+  const handleLogOut = async () => {
+    await LogOut();
+    dispatch(userLogOut());
+  };
 
   return (
     <>
@@ -60,9 +72,15 @@ const HeaderTop = () => {
       </div>
       <div className="login-box">
         <div className="container_login">
-          <Button variant="success" onClick={handleShowLoginForm}>
-            Login
-          </Button>
+          {!isUserLogined ? (
+            <Button variant="success" onClick={handleShowLoginForm}>
+              Login
+            </Button>
+          ) : (
+            <Button variant="success" onClick={handleLogOut}>
+              LogOut
+            </Button>
+          )}
         </div>
         <Link to="/create_new_client">Registration New</Link>
       </div>
