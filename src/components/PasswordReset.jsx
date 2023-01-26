@@ -1,13 +1,36 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import userResetPassword from "../services/firebase/utils/userPasswordReset";
 
 const PasswordReset = () => {
-  const [email, setEmail] = useState("");
+  const [resetState, setResetState] = useState({
+    email: "",
+    isReset: false,
+  });
 
   const changeEmailHandle = (e) => {
-    setEmail(e.target.value);
+    setResetState({
+      ...resetState,
+      email: e.target.value,
+    });
   };
+
+  const handleUserResetPassword = (email) => {
+    setResetState({
+      ...resetState,
+      isReset: userResetPassword(email),
+    });
+  };
+
+  if (resetState.isReset) {
+    return (
+      <div className="container_narrow">
+        <h4>We have sent instructions to your email.</h4>
+        <Link to="/">Home</Link>
+      </div>
+    );
+  }
 
   return (
     <div className="container_narrow">
@@ -18,14 +41,17 @@ const PasswordReset = () => {
             required
             type="email"
             placeholder="name@example.com"
-            value={email}
+            value={resetState.email}
             onChange={changeEmailHandle}
             autoFocus
           />
         </Form.Group>
         <Form.Group>
           <p>If you want to reset you password:</p>
-          <Button variant="danger" onClick={() => userResetPassword(email)}>
+          <Button
+            variant="danger"
+            onClick={() => handleUserResetPassword(resetState.email)}
+          >
             click the Button
           </Button>
         </Form.Group>
