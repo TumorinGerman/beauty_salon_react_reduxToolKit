@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogining } from "../redux/slices/userSlice";
 import createUserWithEmail from "../services/firebase/utils/createUserWithEmail";
+import sendVerificationEmail from "../services/firebase/utils/sendVerificationEmail";
 
 const CreateNewClient = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const CreateNewClient = () => {
     e.preventDefault();
     const { email, password } = values;
     const loginedUser = await createUserWithEmail(email, password);
-    console.log(loginedUser);
+    await sendVerificationEmail();
     if (loginedUser) {
       dispatch(userLogining(loginedUser.uid));
       setValues({
@@ -63,6 +64,7 @@ const CreateNewClient = () => {
   return (
     <div className="container">
       <Form>
+        <h3>Nowy klient</h3>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

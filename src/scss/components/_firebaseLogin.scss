@@ -1,0 +1,19 @@
+.modal-content {
+  background-color: $gray-line;
+  .modal-title {
+    text-align: center;
+  }
+
+  .modal-footer {
+    justify-content: space-between;
+    &_links {
+      display: flex;
+      flex-direction: column;
+    }
+    &_buttons {
+      button {
+        margin-left: 10px;
+      }
+    }
+  }
+}

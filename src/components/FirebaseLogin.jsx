@@ -43,10 +43,10 @@ const FirebaseLogin = ({ show, setShowLoginForm }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleCloseLoginForm}>
-      <Modal.Header closeButton>
+    <Modal show={show}>
+      <Modal.Header>
         <Modal.Title>
-          Zaloguj się lub kliknij „Utwórz nowego klienta” poniżej.
+          Zaloguj się. <br></br>Lub kliknij „Utwórz nowego klienta” poniżej.
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -76,15 +76,22 @@ const FirebaseLogin = ({ show, setShowLoginForm }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Link to="/create_new_client" onClick={handleCloseLoginForm}>
-          Utwórz nowego klienta
-        </Link>
-        <Button variant="secondary" onClick={handleCloseLoginForm}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleSendLoginForm}>
-          Send
-        </Button>
+        <div className="modal-footer_links">
+          <Link to="/create_new_client" onClick={handleCloseLoginForm}>
+            Utwórz nowego klienta
+          </Link>
+          <Link to="reset_password_form" onClick={handleCloseLoginForm}>
+            Nie pamiętam hasła
+          </Link>
+        </div>
+        <div className="modal-footer_buttons">
+          <Button variant="secondary" onClick={handleCloseLoginForm}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSendLoginForm}>
+            Send
+          </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );

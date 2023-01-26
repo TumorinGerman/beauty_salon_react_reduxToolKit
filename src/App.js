@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Price from "./pages/Price";
 import CreateNewClient from "./components/CreateNewClient";
+import PasswordReset from "./components/PasswordReset";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/price" element={<Price />} />
           <Route path="/create_new_client" element={<CreateNewClient />} />
+          <Route path="/reset_password_form" element={<PasswordReset />} />
         </Routes>
       </div>
     </div>
