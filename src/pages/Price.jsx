@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 
-import getPriceFireStore from "../services/firebase/getPrice";
+import getPriceFireStore from "../services/firebase/utils/getPrice";
 import authObserver from "../services/firebase/utils/authObserver";
 
 const Price = () => {
   const [priceList, setPriceList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-
-  authObserver();
 
   const getPrice = async () => {
     try {

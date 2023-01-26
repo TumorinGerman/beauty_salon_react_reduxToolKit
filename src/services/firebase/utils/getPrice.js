@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore/lite";
-import { db } from "./firebase_config";
+import { db } from "../firebase_config";
 
 async function getPrice() {
   const priceCol = collection(db, "price");

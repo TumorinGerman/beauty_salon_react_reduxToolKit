@@ -1,15 +1,12 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const authObserver = () => {
-  const auth = getAuth();
-  return onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      console.log(" User is signIn", uid);
-    } else {
-      console.log(" User is signed out");
-    }
-  });
-};
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+  } else {
+    console.log(" User is signed out");
+    return null;
+  }
+});
 
-export default authObserver;
+export default onAuthStateChanged;

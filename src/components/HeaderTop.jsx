@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import FirebaseLogin from "./FirebaseLogin";
 import LogOut from "../services/firebase/utils/LogOut";
-import { userLogOut } from "../redux/slices/userSlice";
+import { userLogining, userLogOut } from "../redux/slices/userSlice";
 
 const HeaderTop = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
 
   const dispatch = useDispatch();
   const isUserLogined = useSelector((state) => state.userAuth.isLogined);
-  console.log(isUserLogined);
 
   const handleShowLoginForm = () => setShowLoginForm(true);
 
@@ -19,6 +19,23 @@ const HeaderTop = () => {
     await LogOut();
     dispatch(userLogOut());
   };
+
+  const handleGetUser = () => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log(" User is signIn", uid);
+        dispatch(userLogining(uid));
+      } else {
+        console.log(" User is signed out");
+      }
+    });
+  };
+
+  useEffect(() => {
+    handleGetUser();
+  }, []);
 
   return (
     <>
