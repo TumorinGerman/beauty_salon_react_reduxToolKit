@@ -1,0 +1,32 @@
+.user_form {
+  h3 {
+    text-align: center;
+    border-bottom: thick double #20c99747;
+  }
+  &_information {
+    display: flex;
+    width: 100%;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
+
+    p {
+      color: red;
+    }
+
+    &_main {
+      width: 40%;
+      padding-right: 10px;
+      margin-right: 10px;
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
+    }
+    &_additional {
+      width: 50%;
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
+    }
+  }
+}

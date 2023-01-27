@@ -80,7 +80,7 @@ const FirebaseLogin = ({ show, setShowLoginForm }) => {
           <Link to="/create_new_client" onClick={handleCloseLoginForm}>
             Utwórz nowego klienta
           </Link>
-          <Link to="reset_password_form" onClick={handleCloseLoginForm}>
+          <Link to="/reset_password_form" onClick={handleCloseLoginForm}>
             Nie pamiętam hasła
           </Link>
         </div>

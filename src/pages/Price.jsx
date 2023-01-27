@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 
 import getPriceFireStore from "../services/firebase/utils/getPrice";
-import authObserver from "../services/firebase/utils/authObserver";
 
 const Price = () => {
   const [priceList, setPriceList] = useState([]);
