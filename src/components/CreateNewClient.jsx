@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Form, FloatingLabel, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogining } from "../redux/slices/userSlice";
 import createUserWithEmail from "../services/firebase/utils/createUserWithEmail";
@@ -45,21 +44,13 @@ const CreateNewClient = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target);
-  };
-
-  const changeEmailHandle = (e) => {
+    console.log(e.target.id);
+    const nameOfProperties = e.target.id;
     setValues({
       ...values,
-      email: e.target.value,
+      [nameOfProperties]: e.target.value,
     });
-  };
-
-  const changePasswordHandle = (e) => {
-    setValues({
-      ...values,
-      password: e.target.value,
-    });
+    console.table(values);
   };
 
   const inputEmail = useRef(null);
@@ -70,12 +61,23 @@ const CreateNewClient = () => {
   if (values.isUserCreated) {
     return (
       <div className="container">
-        <h3>Użytkownik został pomyślnie utworzony.</h3>
-        <h6>The user has been successfully created.</h6>
-        <Link to="/">
-          <p>Wróć do strony głównej</p>
-          <p>Go to home page</p>
-        </Link>
+        <h3>
+          Użytkownik został pomyślnie utworzony. Wysłaliśmy Ci link na Twój
+          e-mail
+        </h3>
+        <p>Po potwierdzeniu e-maila przejdź do strony głównej lub odśwież.</p>
+        <h6>
+          The user has been successfully created. Confirm your email. We have
+          sent you a link to your email
+        </h6>
+        <p>After confirming Email, go to the main page or refresh.</p>
+        <br></br>
+        <p>
+          <a href="/">Wróć do strony głównej</a>
+        </p>
+        <p>
+          <a href="/">Go to home page</a>
+        </p>
       </div>
     );
   }
@@ -89,7 +91,7 @@ const CreateNewClient = () => {
             <div className="user_form_information_main">
               <h4>Obowiązkowe informacje</h4>
               <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom03">
+                <Form.Group as={Col} md="8" controlId="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="text"
@@ -97,7 +99,7 @@ const CreateNewClient = () => {
                     required
                     value={values.email}
                     ref={inputEmail}
-                    onChange={changeEmailHandle}
+                    onChange={handleChange}
                   />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid Email.
@@ -105,14 +107,14 @@ const CreateNewClient = () => {
                 </Form.Group>
               </Row>
               <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom01">
+                <Form.Group as={Col} md="8" controlId="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     required
                     type="text"
                     placeholder="Password"
                     value={values.password}
-                    onChange={changePasswordHandle}
+                    onChange={handleChange}
                   />
                   <Form.Text id="validationCustom01" muted>
                     Your password must be more then 6 characters, and must not
@@ -124,9 +126,9 @@ const CreateNewClient = () => {
             </div>
             <div className="user_form_information_additional">
               <h4>Dodatkowe informacje</h4>
-              <Form.Group className="mb-3" controlId="formFirstName">
+              <Form.Group className="mb-3" controlId="firstName">
                 <FloatingLabel
-                  controlId="formFirstName"
+                  controlId="firstName"
                   label="First name"
                   className="mb-3"
                 >
@@ -139,9 +141,9 @@ const CreateNewClient = () => {
                 </FloatingLabel>
                 <Form.Text muted>Imię</Form.Text>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formSecondName">
+              <Form.Group className="mb-3" controlId="secondName">
                 <FloatingLabel
-                  controlId="formSecondName"
+                  controlId="secondName"
                   label="Second name"
                   className="mb-3"
                 >
@@ -153,10 +155,11 @@ const CreateNewClient = () => {
                 </FloatingLabel>
                 <Form.Text muted>Nazwisko</Form.Text>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formPhoneNumber">
+              <Form.Group className="mb-3" controlId="phoneNumber">
                 <FloatingLabel
-                  controlId="formPhoneNumber"
+                  controlId="phoneNumber"
                   label="Phone number"
+                  pattern="^\+\d{2}\(\d{3}\)\d{3}-\d{2}-\d{2}$"
                   className="mb-3"
                 >
                   <Form.Control
@@ -167,7 +170,7 @@ const CreateNewClient = () => {
                 </FloatingLabel>
                 <Form.Text muted>Numer telefonu</Form.Text>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="textarea">
+              <Form.Group className="mb-3" controlId="additional">
                 <Form.Label>Dodatkowy</Form.Label>
                 <Form.Control
                   as="textarea"
