@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Button, Form, FloatingLabel } from "react-bootstrap";
+import { Button, Form, FloatingLabel, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogining } from "../redux/slices/userSlice";
@@ -29,17 +29,19 @@ const CreateNewClient = () => {
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
-      setValidated(true);
       const loginedUser = await createUserWithEmail(email, password);
       await sendVerificationEmail();
       if (loginedUser) {
-        dispatch(userLogining(loginedUser.uid));
+        if (loginedUser.emailVerified) {
+          dispatch(userLogining(loginedUser.uid));
+        }
         setValues({
           ...values,
           isUserCreated: true,
         });
       }
     }
+    setValidated(true);
   };
 
   const handleChange = (e) => {
@@ -80,119 +82,117 @@ const CreateNewClient = () => {
 
   return (
     <div className="container">
-      <Form className="user_form" validated={validated} onSubmit={submitHandle}>
-        <h3>Nowy klient</h3>
-        <div className="user_form_information">
-          <div className="user_form_information_main">
-            <h4>Obowiązkowe informacje</h4>
-            <Form.Group className="mb-3" controlId="email">
-              <FloatingLabel
-                controlId="email"
-                label="Email address"
-                className="mb-3"
-              >
+      <Form noValidate validated={validated} onSubmit={submitHandle}>
+        <div className="user_form">
+          <h3>Nowy klient</h3>
+          <div className="user_form_information">
+            <div className="user_form_information_main">
+              <h4>Obowiązkowe informacje</h4>
+              <Row className="mb-3">
+                <Form.Group as={Col} md="8" controlId="validationCustom03">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Email"
+                    required
+                    value={values.email}
+                    ref={inputEmail}
+                    onChange={changeEmailHandle}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please provide a valid Email.
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row className="mb-3">
+                <Form.Group as={Col} md="8" controlId="validationCustom01">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="Password"
+                    value={values.password}
+                    onChange={changePasswordHandle}
+                  />
+                  <Form.Text id="validationCustom01" muted>
+                    Your password must be more then 6 characters, and must not
+                    contain spaces, special characters, or emoji.
+                  </Form.Text>
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+            </div>
+            <div className="user_form_information_additional">
+              <h4>Dodatkowe informacje</h4>
+              <Form.Group className="mb-3" controlId="formFirstName">
+                <FloatingLabel
+                  controlId="formFirstName"
+                  label="First name"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="name"
+                    placeholder="FirstName"
+                    value={firstName}
+                    onChange={handleChange}
+                  />
+                </FloatingLabel>
+                <Form.Text muted>Imię</Form.Text>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formSecondName">
+                <FloatingLabel
+                  controlId="formSecondName"
+                  label="Second name"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    placeholder="Second name"
+                    value={secondName}
+                    onChange={handleChange}
+                  />
+                </FloatingLabel>
+                <Form.Text muted>Nazwisko</Form.Text>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formPhoneNumber">
+                <FloatingLabel
+                  controlId="formPhoneNumber"
+                  label="Phone number"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    placeholder="Phone number"
+                    value={phoneNumber}
+                    onChange={handleChange}
+                  />
+                </FloatingLabel>
+                <Form.Text muted>Numer telefonu</Form.Text>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="textarea">
+                <Form.Label>Dodatkowy</Form.Label>
                 <Form.Control
-                  required
-                  type="email"
-                  placeholder="Enter email"
-                  value={values.email}
-                  ref={inputEmail}
-                  onChange={changeEmailHandle}
+                  as="textarea"
+                  placeholder="Write something here… "
+                  maxLength="200"
+                  rows={3}
+                  value={additional}
+                  onChange={handleChange}
                 />
-              </FloatingLabel>
-              {!validated ? <p>Please provide a valid email.</p> : null}
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="password">
-              <FloatingLabel
-                controlId="password"
-                label="Password"
-                className="mb-3"
-              >
-                <Form.Control
-                  required
-                  type="password"
-                  placeholder="Password"
-                  value={values.password}
-                  onChange={changePasswordHandle}
-                />
-              </FloatingLabel>
-              <Form.Text id="passwordHelpBlock" muted>
-                Your password must be more then 6 characters, and must not
-                contain spaces, special characters, or emoji.
-              </Form.Text>
-            </Form.Group>
+                <Form.Text muted>maximum 200 characters</Form.Text>
+              </Form.Group>
+            </div>
           </div>
-          <div className="user_form_information_additional">
-            <h4>Dodatkowe informacje</h4>
-            <Form.Group className="mb-3" controlId="formFirstName">
-              <FloatingLabel
-                controlId="formFirstName"
-                label="First name"
-                className="mb-3"
-              >
-                <Form.Control
-                  type="name"
-                  placeholder="FirstName"
-                  value={firstName}
-                  onChange={handleChange}
-                />
-              </FloatingLabel>
-              <Form.Text muted>Imię</Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formSecondName">
-              <FloatingLabel
-                controlId="formSecondName"
-                label="Second name"
-                className="mb-3"
-              >
-                <Form.Control
-                  placeholder="Second name"
-                  value={secondName}
-                  onChange={handleChange}
-                />
-              </FloatingLabel>
-              <Form.Text muted>Nazwisko</Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formPhoneNumber">
-              <FloatingLabel
-                controlId="formPhoneNumber"
-                label="Phone number"
-                className="mb-3"
-              >
-                <Form.Control
-                  placeholder="Phone number"
-                  value={phoneNumber}
-                  onChange={handleChange}
-                />
-              </FloatingLabel>
-              <Form.Text muted>Numer telefonu</Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="textarea">
-              <Form.Label>Dodatkowy</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Write something here… "
-                maxLength="200"
-                rows={3}
-                value={additional}
-                onChange={handleChange}
-              />
-              <Form.Text muted>maximum 200 characters</Form.Text>
-            </Form.Group>
-          </div>
+          <Form.Group className="mb-3">
+            <Form.Check
+              required
+              label="Agree to terms and conditions"
+              feedback="You must agree before submitting."
+              feedbackType="invalid"
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
         </div>
-        <Form.Group className="mb-3">
-          <Form.Check
-            required
-            label="Agree to terms and conditions"
-            feedback="You must agree before submitting."
-            feedbackType="invalid"
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
       </Form>
     </div>
   );

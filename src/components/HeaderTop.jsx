@@ -25,8 +25,12 @@ const HeaderTop = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
+        const emailVerified = user.emailVerified;
         console.log(" User is signIn", uid);
-        dispatch(userLogining(uid));
+        console.log("email Verified", emailVerified);
+        if (emailVerified) {
+          dispatch(userLogining(uid));
+        }
       } else {
         console.log(" User is signed out");
       }
