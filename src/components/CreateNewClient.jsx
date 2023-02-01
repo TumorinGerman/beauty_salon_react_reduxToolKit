@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Form, FloatingLabel, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { userLogining } from "../redux/slices/userSlice";
+import { userLogining, addUserInfo } from "../redux/slices/userSlice";
 import createUserWithEmail from "../services/firebase/utils/createUserWithEmail";
 import sendVerificationEmail from "../services/firebase/utils/sendVerificationEmail";
+import addDocToCollectionUser from "../services/firebase/utils/addDocToCollectionUser";
 
 const CreateNewClient = () => {
   const dispatch = useDispatch();
@@ -11,16 +12,26 @@ const CreateNewClient = () => {
   const [validated, setValidated] = useState(false);
   const [values, setValues] = useState({
     isUserCreated: false,
-    email: "",
-    password: "",
-    firstName: "",
-    secondName: "",
-    phoneNumber: "",
-    additional: "",
+    userInfo: {
+      email: "",
+      password: "",
+      nickName: "",
+      firstName: "",
+      secondName: "",
+      phoneNumber: "",
+      additional: "",
+    },
   });
 
-  const { email, password, firstName, secondName, phoneNumber, additional } =
-    values;
+  const {
+    email,
+    password,
+    nickName,
+    firstName,
+    secondName,
+    phoneNumber,
+    additional,
+  } = values.userInfo;
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -34,6 +45,10 @@ const CreateNewClient = () => {
         if (loginedUser.emailVerified) {
           dispatch(userLogining(loginedUser.uid));
         }
+        const infoToSend = { ...values.userInfo };
+        delete infoToSend.password;
+        dispatch(addUserInfo(infoToSend));
+        await addDocToCollectionUser(loginedUser.uid, infoToSend);
         setValues({
           ...values,
           isUserCreated: true,
@@ -44,13 +59,13 @@ const CreateNewClient = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.id);
     const nameOfProperties = e.target.id;
-    setValues({
-      ...values,
+    const userInfoUpdate = {
+      ...values.userInfo,
       [nameOfProperties]: e.target.value,
-    });
-    console.table(values);
+    };
+    const stateUpdate = { ...values, userInfo: userInfoUpdate };
+    setValues(stateUpdate);
   };
 
   const inputEmail = useRef(null);
@@ -97,7 +112,7 @@ const CreateNewClient = () => {
                     type="text"
                     placeholder="Email"
                     required
-                    value={values.email}
+                    value={email}
                     ref={inputEmail}
                     onChange={handleChange}
                   />
@@ -113,7 +128,7 @@ const CreateNewClient = () => {
                     required
                     type="text"
                     placeholder="Password"
-                    value={values.password}
+                    value={password}
                     onChange={handleChange}
                   />
                   <Form.Text id="validationCustom01" muted>
@@ -126,6 +141,23 @@ const CreateNewClient = () => {
             </div>
             <div className="user_form_information_additional">
               <h4>Dodatkowe informacje</h4>
+              <Form.Group className="mb-3" controlId="nickName">
+                <FloatingLabel
+                  controlId="nickName"
+                  label="Nickname"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="name"
+                    placeholder="Nickname"
+                    value={nickName}
+                    onChange={handleChange}
+                  />
+                </FloatingLabel>
+                <Form.Text muted>
+                  Nazwa, która będzie wyświetlana na stronie
+                </Form.Text>
+              </Form.Group>
               <Form.Group className="mb-3" controlId="firstName">
                 <FloatingLabel
                   controlId="firstName"
@@ -159,7 +191,6 @@ const CreateNewClient = () => {
                 <FloatingLabel
                   controlId="phoneNumber"
                   label="Phone number"
-                  pattern="^\+\d{2}\(\d{3}\)\d{3}-\d{2}-\d{2}$"
                   className="mb-3"
                 >
                   <Form.Control

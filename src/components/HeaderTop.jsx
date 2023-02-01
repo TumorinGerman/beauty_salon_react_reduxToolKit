@@ -5,13 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import FirebaseLogin from "./FirebaseLogin";
 import LogOut from "../services/firebase/utils/LogOut";
-import { userLogining, userLogOut } from "../redux/slices/userSlice";
+import getUserInformation from "../services/firebase/utils/getUserInformation";
+import {
+  userLogining,
+  addUserInfo,
+  userLogOut,
+} from "../redux/slices/userSlice";
 
 const HeaderTop = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
 
   const dispatch = useDispatch();
-  const isUserLogined = useSelector((state) => state.userAuth.isLogined);
+  const { isLogined, userInformation } = useSelector((state) => state.userAuth);
 
   const handleShowLoginForm = () => setShowLoginForm(true);
 
@@ -22,7 +27,7 @@ const HeaderTop = () => {
 
   const handleGetUser = () => {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
         const emailVerified = user.emailVerified;
@@ -30,6 +35,8 @@ const HeaderTop = () => {
         console.log("email Verified", emailVerified);
         if (emailVerified) {
           dispatch(userLogining(uid));
+          const userInfo = await getUserInformation(uid);
+          dispatch(addUserInfo(userInfo));
         }
       } else {
         console.log(" User is signed out");
@@ -93,13 +100,13 @@ const HeaderTop = () => {
       </div>
       <div className="login-box">
         <div className="container_login">
-          {!isUserLogined ? (
+          {!isLogined ? (
             <Button variant="success" onClick={handleShowLoginForm}>
               Login
             </Button>
           ) : (
             <Button variant="success" onClick={handleLogOut}>
-              LogOut
+              <span>LogOut</span> {userInformation.nickName}
             </Button>
           )}
         </div>

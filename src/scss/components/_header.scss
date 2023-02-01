@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .header {
   padding: 40px 0;
@@ -33,7 +33,7 @@
       color: $green-logo;
     }
 
-    .logo-box{
+    .logo-box {
       display: flex;
       align-items: center;
       img {
@@ -60,13 +60,19 @@
         font-weight: 700;
       }
     }
-          
+
+    .login-box {
+      span {
+        color: black;
+        font-weight: 700;
+      }
+    }
   }
 
   &_bottom {
     margin: 10px 0;
     a {
-        text-align: center;
+      text-align: center;
     }
     .list-group {
       @media (max-width: 1024px) {
@@ -78,7 +84,7 @@
       a {
         color: $black;
         text-decoration: none;
-    }
+      }
     }
   }
 }
