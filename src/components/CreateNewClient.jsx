@@ -9,7 +9,7 @@ import addDocToCollectionUser from "../services/firebase/utils/addDocToCollectio
 const CreateNewClient = () => {
   const dispatch = useDispatch();
 
-  const [validated, setValidated] = useState(false);
+  const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     isUserCreated: false,
     userInfo: {
@@ -33,10 +33,22 @@ const CreateNewClient = () => {
     additional,
   } = values.userInfo;
 
+  const validationForm = () => {
+    const newErrors = {};
+    if (!email) newErrors.email = "Please provide a valid Email.";
+
+    if (!password || password.length < 6)
+      newErrors.password =
+        "Please enter Password or your password is too short";
+
+    return newErrors;
+  };
+
   const submitHandle = async (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
+    const formErrors = validationForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
       e.stopPropagation();
     } else {
       const loginedUser = await createUserWithEmail(email, password);
@@ -55,10 +67,10 @@ const CreateNewClient = () => {
         });
       }
     }
-    setValidated(true);
   };
 
   const handleChange = (e) => {
+    console.table(errors);
     const nameOfProperties = e.target.id;
     const userInfoUpdate = {
       ...values.userInfo,
@@ -66,6 +78,12 @@ const CreateNewClient = () => {
     };
     const stateUpdate = { ...values, userInfo: userInfoUpdate };
     setValues(stateUpdate);
+
+    if (!!errors[nameOfProperties])
+      setErrors({
+        ...errors,
+        [nameOfProperties]: null,
+      });
   };
 
   const inputEmail = useRef(null);
@@ -99,7 +117,7 @@ const CreateNewClient = () => {
 
   return (
     <div className="container">
-      <Form noValidate validated={validated} onSubmit={submitHandle}>
+      <Form noValidate onSubmit={submitHandle}>
         <div className="user_form">
           <h3>Nowy klient</h3>
           <div className="user_form_information">
@@ -112,12 +130,13 @@ const CreateNewClient = () => {
                     type="text"
                     placeholder="Email"
                     required
+                    isInvalid={!!errors.email}
                     value={email}
                     ref={inputEmail}
                     onChange={handleChange}
                   />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid Email.
+                    {errors.email}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
@@ -125,9 +144,12 @@ const CreateNewClient = () => {
                 <Form.Group as={Col} md="8" controlId="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
+                    className={!!errors.password && "red_border"}
                     required
                     type="text"
+                    min="6"
                     placeholder="Password"
+                    isInvalid={!!errors.password}
                     value={password}
                     onChange={handleChange}
                   />
@@ -135,7 +157,9 @@ const CreateNewClient = () => {
                     Your password must be more then 6 characters, and must not
                     contain spaces, special characters, or emoji.
                   </Form.Text>
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Row>
             </div>
@@ -215,14 +239,6 @@ const CreateNewClient = () => {
               </Form.Group>
             </div>
           </div>
-          <Form.Group className="mb-3">
-            <Form.Check
-              required
-              label="Agree to terms and conditions"
-              feedback="You must agree before submitting."
-              feedbackType="invalid"
-            />
-          </Form.Group>
           <Button variant="primary" type="submit">
             Submit
           </Button>
