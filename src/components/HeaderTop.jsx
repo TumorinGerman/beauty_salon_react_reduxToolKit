@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -101,13 +100,13 @@ const HeaderTop = () => {
       <div className="login-box">
         <div className="container_login">
           {!isLogined ? (
-            <Button variant="success" onClick={handleShowLoginForm}>
+            <button onClick={handleShowLoginForm}>
               <span>Login</span>
-            </Button>
+            </button>
           ) : (
-            <Button variant="success" onClick={handleLogOut}>
+            <button onClick={handleLogOut}>
               <span>LogOut</span> {userInformation.nickName}
-            </Button>
+            </button>
           )}
         </div>
         <Link to="/create_new_client">Registration New</Link>

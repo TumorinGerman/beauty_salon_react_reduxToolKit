@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 
 const HeaderMenu = () => {
   const menuItems = [
-    { id: 0, name: "Informacja", link: "/" },
-    { id: 1, name: "Zabiegi", link: "/" },
-    { id: 2, name: "Promocje", link: "/" },
-    { id: 3, name: "Сenniki", link: "/price" },
-    { id: 4, name: "Кontakty", link: "/" },
+    { id: 0, name: "Zabiegi", link: "/services" },
+    { id: 1, name: "Promocje", link: "/" },
+    { id: 2, name: "Сenniki", link: "/price" },
+    { id: 3, name: "Кontakty", link: "/" },
   ];
 
   return (

@@ -1,0 +1,37 @@
+.services {
+  &_title {
+    text-align: center;
+    color: $green-text;
+  }
+
+  &_items {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+
+    div {
+      transition: all 5s ease;
+    }
+    .item {
+      display: block;
+      text-decoration: none;
+      color: black;
+      margin-bottom: 20px;
+      border-radius: 20px 0;
+      border: 1px solid rgba(0, 63, 106, 0.2);
+      padding: 30px;
+      background-color: AliceBlue;
+    }
+    .item:hover {
+      color: white;
+      background-color: $green-backgroud;
+    }
+
+    .info_content {
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      border: 1px solid $green-logo;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Services from "./components/Services";
 import Price from "./pages/Price";
 import CreateNewClient from "./components/CreateNewClient";
 import PasswordReset from "./components/PasswordReset";
@@ -15,6 +16,7 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/price" element={<Price />} />
           <Route path="/create_new_client" element={<CreateNewClient />} />
           <Route path="/reset_password_form" element={<PasswordReset />} />

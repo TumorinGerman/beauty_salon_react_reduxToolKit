@@ -23,7 +23,7 @@ const Price = () => {
   }, [isLoaded]);
 
   if (!isLoaded) {
-    return <div>Loading</div>;
+    return <div className="container">Loading...</div>;
   }
 
   return (
