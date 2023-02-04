@@ -5,6 +5,11 @@
   section {
     margin-bottom: 60px;
   }
+  a {
+    text-decoration: none;
+    text-align: center;
+    color: $green-text;
+  }
 
   .banner_top {
     width: 100%;
@@ -58,5 +63,14 @@
     p {
       color: $black;
     }
+  }
+
+  .order_form {
+    max-width: 600px;
+    border-radius: 10px 10px 0 0;
+    background-color: #e9f0f4;
+    box-shadow: 0 8px 35px 0 rgb(0 0 0 / 23%);
+    padding: 75px 60px;
+    position: relative;
   }
 }

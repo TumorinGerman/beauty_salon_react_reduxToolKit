@@ -70,7 +70,6 @@ const CreateNewClient = () => {
   };
 
   const handleChange = (e) => {
-    console.table(errors);
     const nameOfProperties = e.target.id;
     const userInfoUpdate = {
       ...values.userInfo,

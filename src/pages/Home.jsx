@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Carousel from "../components/Carousel";
+import OrderForm from "../components/OrderForm";
 
 const Home = () => {
   return (
@@ -20,8 +22,18 @@ const Home = () => {
       </section>
       <section className="our_service">
         <div className="container">
-          <h2 align="center">Nasze Usługi</h2>
+          <Link to="/services">
+            <h2>Nasze Usługi</h2>
+          </Link>
           <Carousel />
+        </div>
+      </section>
+      <section className="order">
+        <div className="container">
+          <Link to="/">
+            <h2>Umówić się</h2>
+          </Link>
+          <OrderForm />
         </div>
       </section>
     </div>

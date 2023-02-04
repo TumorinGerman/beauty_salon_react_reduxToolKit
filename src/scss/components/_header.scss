@@ -9,10 +9,11 @@
 
   &_top {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 1024px) {
+    @media (max-width: 600px) {
       flex-direction: column;
     }
     .text-box {
