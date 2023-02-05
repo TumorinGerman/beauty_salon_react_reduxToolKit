@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { FloatingLabel, Form, Button } from "react-bootstrap";
 import addDocToCollectionOrder from "../services/firebase/utils/addDocToCollectionOrder";
+import moment from "moment";
 
 const OrderForm = () => {
   const [errors, setErrors] = useState({});
@@ -24,13 +25,18 @@ const OrderForm = () => {
 
   const submitHandle = async (e) => {
     e.preventDefault();
-    console.table(errors);
     const formErrors = validationForm();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       e.stopPropagation();
     } else {
-      const addingResult = await addDocToCollectionOrder(values);
+      const orderObj = {
+        ...values,
+        orderDate: moment().format(),
+        isDone: false,
+      };
+      console.table(orderObj);
+      const addingResult = await addDocToCollectionOrder(orderObj);
       addingResult
         ? console.log("information saved")
         : alert("Wiadomość nie została wysłana");
@@ -52,11 +58,6 @@ const OrderForm = () => {
       });
   };
 
-  const inputEmail = useRef(null);
-  useEffect(() => {
-    inputEmail.current.focus();
-  }, []);
-
   return (
     <div className="order_form">
       <h4>
@@ -69,7 +70,6 @@ const OrderForm = () => {
           required
           isInvalid={!!errors.email}
           value={email}
-          ref={inputEmail}
           onChange={handleChange}
         />
         <Form.Text id="email" muted>
