@@ -34,8 +34,12 @@ const CreateNewClient = () => {
   } = values.userInfo;
 
   const validationForm = () => {
+    const regexEmail = new RegExp("^[a-zA-Z0-9_.]+[@]{1}[a-z0-9]+[.][a-z]+$");
+
     const newErrors = {};
-    if (!email) newErrors.email = "Please provide a valid Email.";
+    if (!email) newErrors.email = "Email is empty.";
+    else if (!regexEmail.test(email))
+      newErrors.email = "Please provide a valid Email.";
 
     if (!password || password.length < 6)
       newErrors.password =

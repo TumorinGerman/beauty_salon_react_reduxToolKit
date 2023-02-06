@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getMessaging } from "firebase/messaging";
+// import { getMessaging, getToken } from "firebase/messaging";
 import { getFirestore } from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,4 +23,8 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 // Initialize Firebase Cloud Messaging and get a reference to the service
-export const messaging = getMessaging(app);
+// export const messaging = getMessaging(app);
+// getToken(messaging, {
+//   vapidKey:
+//     "BNfpg-XYvt0mkWWhR5BQ2Sb_V4k9wh6wDfaUqcAs9W5BRhifhYYQTuPVER546L35shge_LfE0kflhqiJJa1F0Jc",
+// });

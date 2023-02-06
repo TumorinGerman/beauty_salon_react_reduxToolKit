@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { FloatingLabel, Form, Button } from "react-bootstrap";
 import addDocToCollectionOrder from "../services/firebase/utils/addDocToCollectionOrder";
 import moment from "moment";
+import ModalInformation from "./ModalInformation";
 
 const OrderForm = () => {
+  const [modalShow, setModalShow] = useState(false);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     email: "",
@@ -13,12 +15,22 @@ const OrderForm = () => {
   });
 
   const { email, firstName, phoneNumber, additional } = values;
+  const message =
+    "Twoja wiadomość została wysłana. Skontaktujemy się z Tobą wkrótce. Dziękuję.";
 
   const validationForm = () => {
+    const regexEmail = new RegExp("^[a-zA-Z0-9_.]+[@]{1}[a-z0-9]+[.][a-z]+$");
+    const regexPhone = new RegExp(
+      "^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$",
+      ""
+    );
     const newErrors = {};
-    if (!email) newErrors.email = "Please provide a valid Email.";
+    if (!email) newErrors.email = "Email is empty.";
+    else if (!regexEmail.test(email))
+      newErrors.email = "Please provide a valid Email.";
     if (!firstName) newErrors.firstName = "Please provide your Name.";
-    if (!phoneNumber)
+    if (!phoneNumber) newErrors.phoneNumber = "Phone number is empty.";
+    else if (!regexPhone.test(phoneNumber))
       newErrors.phoneNumber = "Please provide a valid phone number.";
     return newErrors;
   };
@@ -35,11 +47,11 @@ const OrderForm = () => {
         orderDate: moment().format(),
         isDone: false,
       };
-      console.table(orderObj);
       const addingResult = await addDocToCollectionOrder(orderObj);
       addingResult
         ? console.log("information saved")
         : alert("Wiadomość nie została wysłana");
+      setModalShow(true);
       //Надо сделать верификацию Емаил, сообщение об отправке (модальное)
     }
   };
@@ -60,6 +72,7 @@ const OrderForm = () => {
 
   return (
     <div className="order_form">
+      {modalShow ? <ModalInformation message={message} /> : null}
       <h4>
         Możesz wypełnić formularz, a my oddzwonimy w celu umówienia wizyty.
       </h4>
@@ -105,7 +118,7 @@ const OrderForm = () => {
           onChange={handleChange}
         />
         <Form.Text id="phone" muted>
-          Wpisz numer telefonu
+          Wpisz swój numer telefonu w formacie +48 NUMBER
         </Form.Text>
         <Form.Control.Feedback type="invalid">
           {errors.phoneNumber}
