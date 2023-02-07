@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FloatingLabel, Form, Button } from "react-bootstrap";
 import addDocToCollectionOrder from "../services/firebase/utils/addDocToCollectionOrder";
 import moment from "moment";
 import ModalInformation from "./ModalInformation";
+import sendMail from "../utils/sendMail";
 
 const OrderForm = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -15,6 +16,7 @@ const OrderForm = () => {
   });
 
   const { email, firstName, phoneNumber, additional } = values;
+  const form = useRef();
   const message =
     "Twoja wiadomość została wysłana. Skontaktujemy się z Tobą wkrótce. Dziękuję.";
 
@@ -52,7 +54,8 @@ const OrderForm = () => {
         ? console.log("information saved")
         : alert("Wiadomość nie została wysłana");
       setModalShow(true);
-      //Надо сделать верификацию Емаил, сообщение об отправке (модальное)
+      sendMail(form.current);
+      e.target.reset();
     }
   };
 
@@ -71,7 +74,7 @@ const OrderForm = () => {
   };
 
   return (
-    <div className="order_form">
+    <Form className="order_form" ref={form} onSubmit={submitHandle}>
       {modalShow ? <ModalInformation message={message} /> : null}
       <h4>
         Możesz wypełnić formularz, a my oddzwonimy w celu umówienia wizyty.
@@ -79,6 +82,7 @@ const OrderForm = () => {
       <FloatingLabel controlId="email" label="Email address" className="mb-3">
         <Form.Control
           type="email"
+          name="email"
           placeholder="name@example.com"
           required
           isInvalid={!!errors.email}
@@ -95,6 +99,7 @@ const OrderForm = () => {
       <FloatingLabel controlId="firstName" label="Name" className="mb-3">
         <Form.Control
           type="input"
+          name="name"
           placeholder="Name"
           required
           isInvalid={!!errors.firstName}
@@ -111,6 +116,7 @@ const OrderForm = () => {
       <FloatingLabel controlId="phoneNumber" label="Phone" className="mb-3">
         <Form.Control
           type="input"
+          name="phone"
           placeholder="Phone"
           required
           isInvalid={!!errors.phoneNumber}
@@ -127,19 +133,20 @@ const OrderForm = () => {
       <FloatingLabel controlId="additional" label="Comments" className="mb-3">
         <Form.Control
           as="textarea"
+          name="message"
           placeholder="Leave a comment here"
           style={{ height: "100px" }}
           value={additional}
           onChange={handleChange}
         />
-        <Form.Text id="phone" muted>
+        <Form.Text id="additional" muted>
           Krótko opisz usługi, których potrzebujesz
         </Form.Text>
       </FloatingLabel>
-      <Button variant="primary" type="submit" onClick={submitHandle}>
+      <Button variant="primary" type="submit">
         Wysłać
       </Button>
-    </div>
+    </Form>
   );
 };
 
