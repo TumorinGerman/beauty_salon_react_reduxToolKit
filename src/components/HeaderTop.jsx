@@ -109,7 +109,7 @@ const HeaderTop = () => {
             </button>
           )}
         </div>
-        <Link to="/create_new_client">Registration New</Link>
+        <Link to="/create_new_client">Utwórz nowego klienta</Link>
       </div>
       {showLoginForm ? (
         <FirebaseLogin

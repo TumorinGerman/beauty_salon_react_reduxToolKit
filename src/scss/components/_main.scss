@@ -65,12 +65,48 @@
     }
   }
 
-  .order_form {
+  .order_forms {
+    display: flex;
+  }
+
+  .order_form_guest {
+    h4 {
+      margin-bottom: 38px;
+    }
     max-width: 600px;
     border-radius: 10px 10px 0 0;
     background-color: #e9f0f4;
     box-shadow: 0 8px 35px 0 rgb(0 0 0 / 23%);
     padding: 75px 60px;
     position: relative;
+  }
+
+  .order_form_user {
+    margin-left: 50px;
+    max-width: 530px;
+    border-radius: 10px 10px 0 0;
+    background-color: #e9f0f4;
+    box-shadow: 0 8px 35px 0 rgb(0 0 0 / 23%);
+    padding: 75px 60px;
+    position: relative;
+
+    a {
+      text-decoration: underline;
+      color: blue;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: $green-backgroud;
+    }
+    span {
+      color: $green-color;
+      font-weight: 700;
+    }
+    P {
+      margin-top: 30px;
+      margin-bottom: 5px;
+    }
   }
 }

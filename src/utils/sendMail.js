@@ -9,7 +9,7 @@ const sendMail = (body) => {
         console.log(result.text);
       },
       (error) => {
-        console.log(error.text);
+        alert("We can't send Order right now. Please, use your Phone. Sorry.");
       }
     );
 };

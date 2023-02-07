@@ -55,7 +55,12 @@ const OrderForm = () => {
         : alert("Wiadomość nie została wysłana");
       setModalShow(true);
       sendMail(form.current);
-      e.target.reset();
+      setValues({
+        email: "",
+        firstName: "",
+        phoneNumber: "",
+        additional: "",
+      });
     }
   };
 
@@ -74,7 +79,7 @@ const OrderForm = () => {
   };
 
   return (
-    <Form className="order_form" ref={form} onSubmit={submitHandle}>
+    <Form className="order_form_guest" ref={form} onSubmit={submitHandle}>
       {modalShow ? <ModalInformation message={message} /> : null}
       <h4>
         Możesz wypełnić formularz, a my oddzwonimy w celu umówienia wizyty.
