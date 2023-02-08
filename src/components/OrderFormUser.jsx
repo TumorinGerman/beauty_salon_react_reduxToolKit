@@ -18,7 +18,7 @@ const OrderFormUser = () => {
         <p>Kliknij „Moje konto” lub „Zaloguj się”</p>
         {isLogined ? (
           <Button variant="outline-primary">
-            <Link to="/create_new_client">
+            <Link to="/personal_account">
               <span>Moje konto</span> {userInformation.nickName}
             </Link>
           </Button>

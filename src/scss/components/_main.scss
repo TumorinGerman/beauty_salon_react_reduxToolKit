@@ -112,6 +112,10 @@
       border: none;
       border-radius: 5px;
       background-color: $green-backgroud;
+      a {
+        text-decoration: none;
+        text-align: center;
+      }
     }
     span {
       color: $green-color;
