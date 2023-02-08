@@ -67,6 +67,10 @@
 
   .order_forms {
     display: flex;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   .order_form_guest {
@@ -79,16 +83,25 @@
     box-shadow: 0 8px 35px 0 rgb(0 0 0 / 23%);
     padding: 75px 60px;
     position: relative;
+    @media (max-width: 1024px) {
+      padding: 10px 10px;
+    }
   }
 
   .order_form_user {
+    max-width: 600px;
     margin-left: 50px;
-    max-width: 530px;
     border-radius: 10px 10px 0 0;
     background-color: #e9f0f4;
     box-shadow: 0 8px 35px 0 rgb(0 0 0 / 23%);
     padding: 75px 60px;
     position: relative;
+    @media (max-width: 1024px) {
+      margin-top: 30px;
+      margin-left: 0px;
+      width: 100%;
+      padding: 10px 10px;
+    }
 
     a {
       text-decoration: underline;
