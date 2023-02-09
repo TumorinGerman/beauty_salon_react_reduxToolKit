@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import Services from "./components/Services";
+import Services from "./pages/Services";
 import Price from "./pages/Price";
 import CreateNewClient from "./components/CreateNewClient";
 import PasswordReset from "./components/PasswordReset";

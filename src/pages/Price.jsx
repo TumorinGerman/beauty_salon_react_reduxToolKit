@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import { useDispatch, useSelector } from "react-redux";
 
-import getPriceFireStore from "../services/firebase/utils/getPrice";
+import { fetchServices } from "../redux/slices/servicesSlice";
 
 const Price = () => {
   const [priceList, setPriceList] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+
+  const dispatch = useDispatch();
+  const { services, isLoaded, fetchStatus } = useSelector(
+    (state) => state.services
+  );
 
   const getPrice = async () => {
     try {
-      const data = await getPriceFireStore();
-      setPriceList(data);
-      setIsLoaded(true);
+      if (isLoaded) {
+        setPriceList(services);
+      } else {
+        dispatch(fetchServices());
+      }
     } catch (error) {
-      alert("Error downloding Price!");
+      alert("Error downloading Price!");
       console.log(error);
     }
   };

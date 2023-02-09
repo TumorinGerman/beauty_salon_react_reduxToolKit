@@ -11,13 +11,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     userLogining: (state, action) => {
-      console.log("userLogining start");
       state.isLogined = true;
       state.activeUserId = action.payload;
     },
     addUserInfo: (state, action) => {
-      console.log("addUserInfo start");
-      console.table(action.payload);
       state.userInformation = action.payload;
     },
     userLogOut: (state) => {

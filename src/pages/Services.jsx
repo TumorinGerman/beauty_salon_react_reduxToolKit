@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Meza from "./services/Meza";
-import Peeling from "./services/Peeling";
-import Massage from "./services/Massage";
+import Meza from "../components/services/Meza";
+import Peeling from "../components/services/Peeling";
+import Massage from "../components/services/Massage";
 
 const Services = () => {
   const [isOpen, setIsOpen] = useState({
