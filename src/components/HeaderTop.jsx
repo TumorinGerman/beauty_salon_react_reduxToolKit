@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import FirebaseLogin from "./FirebaseLogin";
-import LogOut from "../services/firebase/utils/LogOut";
 import getUserInformation from "../services/firebase/utils/getUserInformation";
 import { userLogining, addUserInfo } from "../redux/slices/userSlice";
 

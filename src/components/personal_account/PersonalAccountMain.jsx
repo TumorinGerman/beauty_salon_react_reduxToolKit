@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 
-import LogOut from "../../services/firebase/utils/LogOut";
-import { userLogOut } from "../../redux/slices/userSlice";
 import { fetchServices } from "../../redux/slices/servicesSlice";
+import PersonalAccountMenu from "./PersonalAccountMenu";
 
 const PersonalAccountMain = () => {
   const [date, setDate] = useState(new Date());
@@ -29,32 +28,34 @@ const PersonalAccountMain = () => {
     }
   };
 
-  const handleLogOut = async () => {
-    await LogOut();
-    dispatch(userLogOut());
-  };
-
   useEffect(() => {
     getServices();
   }, [isLoaded]);
 
   return (
     <div className="container">
-      <Button onClick={handleLogOut}>LogOut</Button>
-      <Form>
-        <div className="calendar-container">
-          <Calendar
-            onChange={setDate}
-            value={date}
-            minDate={new Date()}
-            minDetail={"month"}
-            locale={"pl-PL"}
-          />
-          <p className="calendar_text">
-            <span className="bold">Selected Date:</span> {date.toDateString()}
-          </p>
+      <div className="account_container">
+        <div className="button_menu">
+          <PersonalAccountMenu />
         </div>
-      </Form>
+        <div className="content">
+          <Form>
+            <div className="calendar-container">
+              <Calendar
+                onChange={setDate}
+                value={date}
+                minDate={new Date()}
+                minDetail={"month"}
+                locale={"pl-PL"}
+              />
+              <p className="calendar_text">
+                <span className="bold">Selected Date:</span>{" "}
+                {date.toDateString()}
+              </p>
+            </div>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 };
