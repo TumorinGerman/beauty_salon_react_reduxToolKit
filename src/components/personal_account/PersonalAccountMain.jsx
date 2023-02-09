@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 
+import LogOut from "../../services/firebase/utils/LogOut";
+import { userLogOut } from "../../redux/slices/userSlice";
 import { fetchServices } from "../../redux/slices/servicesSlice";
 
 const PersonalAccountMain = () => {
@@ -21,14 +23,15 @@ const PersonalAccountMain = () => {
       } else {
         dispatch(fetchServices());
       }
-      // const data = await getPriceFireStore();
-      // setPriceList(data);
-      // console.log(data);
-      // setIsLoaded(true);
     } catch (error) {
       alert("Error downloading Price!");
       console.log(error);
     }
+  };
+
+  const handleLogOut = async () => {
+    await LogOut();
+    dispatch(userLogOut());
   };
 
   useEffect(() => {
@@ -37,6 +40,7 @@ const PersonalAccountMain = () => {
 
   return (
     <div className="container">
+      <Button onClick={handleLogOut}>LogOut</Button>
       <Form>
         <div className="calendar-container">
           <Calendar

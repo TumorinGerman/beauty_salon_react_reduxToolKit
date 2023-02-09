@@ -19,7 +19,8 @@ const OrderFormUser = () => {
         {isLogined ? (
           <Button variant="outline-primary">
             <Link to="/personal_account">
-              <span>Moje konto</span> {userInformation.nickName}
+              <span>Moje konto</span>{" "}
+              <span className="nickName">{userInformation.nickName}</span>
             </Link>
           </Button>
         ) : (

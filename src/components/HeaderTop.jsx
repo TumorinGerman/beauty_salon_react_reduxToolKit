@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import FirebaseLogin from "./FirebaseLogin";
 import LogOut from "../services/firebase/utils/LogOut";
 import getUserInformation from "../services/firebase/utils/getUserInformation";
-import {
-  userLogining,
-  addUserInfo,
-  userLogOut,
-} from "../redux/slices/userSlice";
+import { userLogining, addUserInfo } from "../redux/slices/userSlice";
 
 const HeaderTop = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -19,19 +16,12 @@ const HeaderTop = () => {
 
   const handleShowLoginForm = () => setShowLoginForm(true);
 
-  const handleLogOut = async () => {
-    await LogOut();
-    dispatch(userLogOut());
-  };
-
   const handleGetUser = () => {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
         const emailVerified = user.emailVerified;
-        console.log(" User is signIn", uid);
-        console.log("email Verified", emailVerified);
         if (emailVerified) {
           dispatch(userLogining(uid));
           const userInfo = await getUserInformation(uid);
@@ -104,9 +94,12 @@ const HeaderTop = () => {
               <span>Login</span>
             </button>
           ) : (
-            <button onClick={handleLogOut}>
-              <span>LogOut</span> {userInformation.nickName}
-            </button>
+            <Button variant="outline-primary">
+              <Link to="/personal_account">
+                <span>Moje konto</span>{" "}
+                <span className="nickName">{userInformation.nickName}</span>
+              </Link>
+            </Button>
           )}
         </div>
         <Link to="/create_new_client">Utwórz nowego klienta</Link>
