@@ -2,8 +2,20 @@
   display: flex;
 }
 
+.common_container {
+  display: flex;
+}
+
+.operations {
+  display: flex;
+  flex-direction: column;
+  button {
+    margin-top: 10px;
+  }
+}
+
 .check-services_container {
-  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .react-calendar {
