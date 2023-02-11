@@ -8,12 +8,13 @@ import PersonalAccountMenu from "./PersonalAccountMenu";
 
 const PersonalAccountMain = () => {
   const [date, setDate] = useState(new Date());
-  const [servicesList, setServicesList] = useState([]);
-  const [operationsList, setOperationsList] = useState([]);
+  const [servicesList, setServicesList] = useState([]); //full list from backend
+  const [operationsList, setOperationsList] = useState([]); //just list of operation
   const [selectedServiceState, setSelectedServiceState] = useState({
     isSelected: false,
     selectedService: "",
-  });
+  }); //currently selected service
+  const [selectedOperationState, setSelectedOperationState] = useState({}); //currently selected operation
 
   const dispatch = useDispatch();
   const { services, isLoaded } = useSelector((state) => state.services);
@@ -32,11 +33,19 @@ const PersonalAccountMain = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setSelectedServiceState({
       isSelected: true,
       selectedService: event.target.value,
     });
+  };
+
+  const handleClick = (id) => {
+    const selectedOperation = operationsList.filter(
+      (operation) => operation.id === id
+    );
+    if (selectedOperation.length > 0) {
+      setSelectedOperationState(selectedOperation[0]);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +89,13 @@ const PersonalAccountMain = () => {
                   {selectedServiceState.isSelected &&
                   selectedServiceState.selectedService !== "Wybierz usługę"
                     ? operationsList.map(({ id, name }) => (
-                        <Button key={id}>{name}</Button>
+                        <Button
+                          variant="info"
+                          key={id}
+                          onClick={() => handleClick(id)}
+                        >
+                          {name}
+                        </Button>
                       ))
                     : null}
                 </div>
@@ -93,11 +108,22 @@ const PersonalAccountMain = () => {
                   minDetail={"month"}
                   locale={"pl-PL"}
                 />
-                <p className="calendar_text">
-                  <span className="bold">Selected Date:</span>{" "}
-                  {date.toDateString()}
-                </p>
               </div>
+            </div>
+            <div className="information_container">
+              <h4>Wybrałeś:</h4>
+              <p className="calendar_text">
+                <span className="bold">Wybrana usługa:</span>{" "}
+                {selectedServiceState.selectedService}
+              </p>
+              <p className="calendar_text">
+                <span className="bold">Wybrana procedura:</span>{" "}
+                {selectedOperationState.name}, cena:{" "}
+                {selectedOperationState.price}zl
+              </p>
+              <p className="calendar_text">
+                <span className="bold">Date:</span> {date.toDateString()}
+              </p>
             </div>
           </Form>
         </div>
