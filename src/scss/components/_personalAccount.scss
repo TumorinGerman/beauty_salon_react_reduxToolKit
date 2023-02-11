@@ -1,33 +1,50 @@
-.account_container {
+.centre_container {
   display: flex;
-}
-
-.common_container {
-  display: flex;
-  @media (max-width: 1024px) {
+  justify-content: center;
+  .account_container {
+    display: inline-flex;
     flex-direction: column;
-  }
-}
+    justify-content: center;
 
-.operations {
-  display: flex;
-  flex-direction: column;
-  max-width: 280px;
-  button {
-    margin-top: 10px;
-  }
-  @media (max-width: 1024px) {
-    margin-bottom: 30px;
-  }
-}
+    .button_menu {
+      margin-bottom: 40px;
+    }
 
-.check-services_container {
-  margin-right: 20px;
-}
+    .common_container {
+      display: flex;
+      @media (max-width: 1024px) {
+        flex-direction: column;
+      }
 
-.information_container {
-  max-width: 600px;
-  margin-top: 20px;
+      .check-services_container {
+        margin-right: 20px;
+
+        .operations {
+          display: flex;
+          flex-direction: column;
+          max-width: 280px;
+          button {
+            margin-top: 10px;
+          }
+          @media (max-width: 1024px) {
+            margin-bottom: 20px;
+          }
+        }
+      }
+
+      .time_container {
+        margin-left: 20px;
+        @media (max-width: 1024px) {
+          margin-top: 20px;
+        }
+      }
+    }
+
+    .information_container {
+      max-width: 600px;
+      margin-top: 20px;
+    }
+  }
 }
 
 //css for calendar

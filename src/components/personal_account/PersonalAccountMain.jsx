@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, ListGroup } from "react-bootstrap";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchServices } from "../../redux/slices/servicesSlice";
 import PersonalAccountMenu from "./PersonalAccountMenu";
+import TimeChoosing from "./TimeChoosing";
 
 const PersonalAccountMain = () => {
   const [date, setDate] = useState(new Date());
@@ -39,7 +40,8 @@ const PersonalAccountMain = () => {
     });
   };
 
-  const handleClick = (id) => {
+  const handleClick = (id, event) => {
+    event.preventDefault();
     const selectedOperation = operationsList.filter(
       (operation) => operation.id === id
     );
@@ -63,69 +65,77 @@ const PersonalAccountMain = () => {
 
   return (
     <div className="container">
-      <div className="account_container">
-        <div className="button_menu">
-          <PersonalAccountMenu />
-        </div>
-        <div className="content">
-          <Form>
-            <div className="common_container">
-              <div className="check-services_container">
-                <Form.Select
-                  size="lg"
-                  value={selectedServiceState.selectedService}
-                  onChange={handleChange}
-                >
-                  <option>Wybierz usługę</option>
-                  {servicesList.map((service, index) => {
-                    return (
-                      <option key={index} value={service.title}>
-                        {service.title}
-                      </option>
-                    );
-                  })}
-                </Form.Select>
-                <div className="operations">
-                  {selectedServiceState.isSelected &&
-                  selectedServiceState.selectedService !== "Wybierz usługę"
-                    ? operationsList.map(({ id, name }) => (
-                        <Button
-                          variant="info"
-                          key={id}
-                          onClick={() => handleClick(id)}
-                        >
-                          {name}
-                        </Button>
-                      ))
-                    : null}
+      <div className="centre_container">
+        <div className="account_container">
+          <div className="button_menu">
+            <PersonalAccountMenu />
+          </div>
+          <div className="content_container">
+            <Form>
+              <div className="common_container">
+                <div className="check-services_container">
+                  <Form.Select
+                    size="lg"
+                    value={selectedServiceState.selectedService}
+                    onChange={handleChange}
+                  >
+                    <option>Wybierz usługę</option>
+                    {servicesList.map((service, index) => {
+                      return (
+                        <option key={index} value={service.title}>
+                          {service.title}
+                        </option>
+                      );
+                    })}
+                  </Form.Select>
+                  <div className="operations">
+                    <ListGroup>
+                      {selectedServiceState.isSelected &&
+                      selectedServiceState.selectedService !== "Wybierz usługę"
+                        ? operationsList.map(({ id, name }) => (
+                            <ListGroup.Item
+                              action
+                              variant="success"
+                              key={id}
+                              onClick={(event) => handleClick(id, event)}
+                            >
+                              {name}
+                            </ListGroup.Item>
+                          ))
+                        : null}
+                    </ListGroup>
+                  </div>
+                </div>
+                <div className="calendar-container">
+                  <Calendar
+                    onChange={setDate}
+                    value={date}
+                    minDate={new Date()}
+                    minDetail={"month"}
+                    locale={"pl-PL"}
+                  />
+                </div>
+                <div className="time_container">
+                  <TimeChoosing />
                 </div>
               </div>
-              <div className="calendar-container">
-                <Calendar
-                  onChange={setDate}
-                  value={date}
-                  minDate={new Date()}
-                  minDetail={"month"}
-                  locale={"pl-PL"}
-                />
+              <div className="information_container">
+                <h4>Wybrałeś:</h4>
+                <p className="calendar_text">
+                  <span className="bold">Wybrana usługa:</span>{" "}
+                  {selectedServiceState.selectedService}
+                </p>
+                <p className="calendar_text">
+                  <span className="bold">Wybrana procedura:</span>{" "}
+                  {selectedOperationState.name}, cena:{" "}
+                  {selectedOperationState.price}zl
+                </p>
+                <p className="calendar_text">
+                  <span className="bold">Date:</span> {date.toDateString()}
+                </p>
               </div>
-            </div>
-            <div className="information_container">
-              <h4>Wybrałeś:</h4>
-              <p className="calendar_text">
-                <span className="bold">Wybrana usługa:</span>{" "}
-                {selectedServiceState.selectedService}
-              </p>
-              <p className="calendar_text">
-                <span className="bold">Wybrana procedura:</span>{" "}
-                {selectedOperationState.name}, cena:{" "}
-                {selectedOperationState.price}zl
-              </p>
-              <p className="calendar_text">
-                <span className="bold">Date:</span> {date.toDateString()}
-              </p>
-            </div>
-          </Form>
+            </Form>
+          </div>
         </div>
       </div>
     </div>
