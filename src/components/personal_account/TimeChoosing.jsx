@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 
-const TimeChoosing = () => {
+const TimeChoosing = ({ setTime }) => {
   const workTime = [
     "10-11",
     "11-12",
@@ -16,7 +16,7 @@ const TimeChoosing = () => {
 
   const handleClick = (index, event) => {
     event.preventDefault();
-    console.log(workTime[index]);
+    setTime(workTime[index]);
   };
 
   return (

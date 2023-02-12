@@ -9,6 +9,7 @@ import TimeChoosing from "./TimeChoosing";
 
 const PersonalAccountMain = () => {
   const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("");
   const [servicesList, setServicesList] = useState([]); //full list from backend
   const [operationsList, setOperationsList] = useState([]); //just list of operation
   const [selectedServiceState, setSelectedServiceState] = useState({
@@ -116,7 +117,7 @@ const PersonalAccountMain = () => {
                   />
                 </div>
                 <div className="time_container">
-                  <TimeChoosing />
+                  <TimeChoosing setTime={setTime} />
                 </div>
               </div>
               <div className="information_container">
@@ -132,6 +133,9 @@ const PersonalAccountMain = () => {
                 </p>
                 <p className="calendar_text">
                   <span className="bold">Date:</span> {date.toDateString()}
+                </p>
+                <p className="calendar_text">
+                  <span className="bold">Time:</span> {time}
                 </p>
               </div>
             </Form>
