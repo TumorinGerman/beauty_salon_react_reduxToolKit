@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, ListGroup } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 import { fetchServices } from "../../redux/slices/servicesSlice";
 import PersonalAccountMenu from "./PersonalAccountMenu";
 import TimeChoosing from "./TimeChoosing";
+import OperationChoosing from "./OperationChoosing";
+import InformationBlock from "./InformationBlock";
+import ServiceChoosing from "./ServiceChoosing";
 
 const PersonalAccountMain = () => {
   const [date, setDate] = useState(new Date());
@@ -34,14 +38,14 @@ const PersonalAccountMain = () => {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChangeService = (event) => {
     setSelectedServiceState({
       isSelected: true,
       selectedService: event.target.value,
     });
   };
 
-  const handleClick = (id, event) => {
+  const handleClickOperation = (id, event) => {
     event.preventDefault();
     const selectedOperation = operationsList.filter(
       (operation) => operation.id === id
@@ -64,6 +68,13 @@ const PersonalAccountMain = () => {
     }
   }, [selectedServiceState]);
 
+  const inMoment = moment(date, "MM-DD-YYYY")
+    .format("ddd MMM D YYYY")
+    .toString();
+  console.log(inMoment);
+  console.log(date.toDateString());
+  console.log(date.toDateString() === inMoment);
+
   return (
     <div className="container">
       <div className="centre_container">
@@ -75,37 +86,16 @@ const PersonalAccountMain = () => {
             <Form>
               <div className="common_container">
                 <div className="check-services_container">
-                  <Form.Select
-                    size="lg"
-                    value={selectedServiceState.selectedService}
-                    onChange={handleChange}
-                  >
-                    <option>Wybierz usługę</option>
-                    {servicesList.map((service, index) => {
-                      return (
-                        <option key={index} value={service.title}>
-                          {service.title}
-                        </option>
-                      );
-                    })}
-                  </Form.Select>
-                  <div className="operations">
-                    <ListGroup>
-                      {selectedServiceState.isSelected &&
-                      selectedServiceState.selectedService !== "Wybierz usługę"
-                        ? operationsList.map(({ id, name }) => (
-                            <ListGroup.Item
-                              action
-                              variant="success"
-                              key={id}
-                              onClick={(event) => handleClick(id, event)}
-                            >
-                              {name}
-                            </ListGroup.Item>
-                          ))
-                        : null}
-                    </ListGroup>
-                  </div>
+                  <ServiceChoosing
+                    selectedServiceState={selectedServiceState}
+                    servicesList={servicesList}
+                    handleChangeService={handleChangeService}
+                  />
+                  <OperationChoosing
+                    selectedServiceState={selectedServiceState}
+                    operationsList={operationsList}
+                    handleClickOperation={handleClickOperation}
+                  />
                 </div>
                 <div className="calendar-container">
                   <Calendar
@@ -120,24 +110,12 @@ const PersonalAccountMain = () => {
                   <TimeChoosing setTime={setTime} />
                 </div>
               </div>
-              <div className="information_container">
-                <h4>Wybrałeś:</h4>
-                <p className="calendar_text">
-                  <span className="bold">Wybrana usługa:</span>{" "}
-                  {selectedServiceState.selectedService}
-                </p>
-                <p className="calendar_text">
-                  <span className="bold">Wybrana procedura:</span>{" "}
-                  {selectedOperationState.name}, cena:{" "}
-                  {selectedOperationState.price}zl
-                </p>
-                <p className="calendar_text">
-                  <span className="bold">Date:</span> {date.toDateString()}
-                </p>
-                <p className="calendar_text">
-                  <span className="bold">Time:</span> {time}
-                </p>
-              </div>
+              <InformationBlock
+                selectedServiceState={selectedServiceState}
+                selectedOperationState={selectedOperationState}
+                date={date}
+                time={time}
+              />
             </Form>
           </div>
         </div>
