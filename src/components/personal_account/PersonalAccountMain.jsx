@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
 import { fetchServices } from "../../redux/slices/servicesSlice";
+import { pushOrder } from "../../redux/slices/ordersSlice";
 import PersonalAccountMenu from "./PersonalAccountMenu";
 import TimeChoosing from "./TimeChoosing";
 import OperationChoosing from "./OperationChoosing";
 import InformationBlock from "./InformationBlock";
 import ServiceChoosing from "./ServiceChoosing";
+import ModalInformation from "../ModalInformation";
 
 const PersonalAccountMain = () => {
   const [date, setDate] = useState(new Date());
@@ -25,9 +27,11 @@ const PersonalAccountMain = () => {
     name: "",
     price: "",
   });
+  const [showMessage, setShowMessage] = useState(false);
 
   const dispatch = useDispatch();
   const { services, isLoaded } = useSelector((state) => state.services);
+  const { isPushed } = useSelector((state) => state.orders);
 
   const getServices = async () => {
     try {
@@ -77,66 +81,76 @@ const PersonalAccountMain = () => {
     }
   }, [selectedServiceState]);
 
-  const inMoment = moment(date, "MM-DD-YYYY")
-    .format("ddd MMM D YYYY")
-    .toString();
-  console.log(inMoment);
-  console.log(date.toDateString());
-  console.log(date.toDateString() === inMoment);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const orderDate = moment(date, "MM-DD-YYYY")
+      .format("ddd MMM D YYYY")
+      .toString();
+    dispatch(
+      pushOrder({
+        orderDate,
+        orderTime: time,
+        selectedService: selectedServiceState.selectedService,
+        selectedOperation: selectedOperationState.name,
+      })
+    );
+    if (isPushed) setShowMessage(true);
   };
 
   return (
-    <div className="container">
-      <div className="centre_container">
-        <div className="account_container">
-          <div className="button_menu">
-            <PersonalAccountMenu />
-          </div>
-          <div className="content_container">
-            <Form onSubmit={handleSubmit}>
-              <div className="common_container">
-                <div className="check-services_container">
-                  <ServiceChoosing
-                    selectedServiceState={selectedServiceState}
-                    servicesList={servicesList}
-                    handleChangeService={handleChangeService}
-                  />
-                  <OperationChoosing
-                    selectedServiceState={selectedServiceState}
-                    operationsList={operationsList}
-                    handleClickOperation={handleClickOperation}
-                  />
+    <>
+      {showMessage ? (
+        <ModalInformation message={"Twoja aplikacja została wysłana"} />
+      ) : null}
+      <div className="container">
+        <div className="centre_container">
+          <div className="account_container">
+            <div className="button_menu">
+              <PersonalAccountMenu />
+            </div>
+            <div className="content_container">
+              <Form onSubmit={handleSubmit}>
+                <div className="common_container">
+                  <div className="check-services_container">
+                    <ServiceChoosing
+                      selectedServiceState={selectedServiceState}
+                      servicesList={servicesList}
+                      handleChangeService={handleChangeService}
+                    />
+                    <OperationChoosing
+                      selectedServiceState={selectedServiceState}
+                      operationsList={operationsList}
+                      handleClickOperation={handleClickOperation}
+                    />
+                  </div>
+                  <div className="calendar-container">
+                    <Calendar
+                      onChange={setDate}
+                      value={date}
+                      minDate={new Date()}
+                      minDetail={"month"}
+                      locale={"pl-PL"}
+                    />
+                  </div>
+                  <div className="time_container">
+                    <TimeChoosing setTime={setTime} />
+                  </div>
                 </div>
-                <div className="calendar-container">
-                  <Calendar
-                    onChange={setDate}
-                    value={date}
-                    minDate={new Date()}
-                    minDetail={"month"}
-                    locale={"pl-PL"}
-                  />
-                </div>
-                <div className="time_container">
-                  <TimeChoosing setTime={setTime} />
-                </div>
-              </div>
-              <InformationBlock
-                selectedServiceState={selectedServiceState}
-                selectedOperationState={infoBlockState}
-                date={date}
-                time={time}
-              />
-              <Button variant="primary" type="submit">
-                Wysłać
-              </Button>
-            </Form>
+                <InformationBlock
+                  selectedServiceState={selectedServiceState}
+                  selectedOperationState={infoBlockState}
+                  date={date}
+                  time={time}
+                />
+                <Button variant="primary" type="submit">
+                  Wysłać
+                </Button>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
