@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -21,6 +21,10 @@ const PersonalAccountMain = () => {
     selectedService: "",
   }); //currently selected service
   const [selectedOperationState, setSelectedOperationState] = useState({}); //currently selected operation
+  const [infoBlockState, setInfoBlockState] = useState({
+    name: "",
+    price: "",
+  });
 
   const dispatch = useDispatch();
   const { services, isLoaded } = useSelector((state) => state.services);
@@ -43,6 +47,10 @@ const PersonalAccountMain = () => {
       isSelected: true,
       selectedService: event.target.value,
     });
+    setInfoBlockState({
+      name: "",
+      price: "",
+    });
   };
 
   const handleClickOperation = (id, event) => {
@@ -52,6 +60,7 @@ const PersonalAccountMain = () => {
     );
     if (selectedOperation.length > 0) {
       setSelectedOperationState(selectedOperation[0]);
+      setInfoBlockState(selectedOperation[0]);
     }
   };
 
@@ -75,6 +84,10 @@ const PersonalAccountMain = () => {
   console.log(date.toDateString());
   console.log(date.toDateString() === inMoment);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="container">
       <div className="centre_container">
@@ -83,7 +96,7 @@ const PersonalAccountMain = () => {
             <PersonalAccountMenu />
           </div>
           <div className="content_container">
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <div className="common_container">
                 <div className="check-services_container">
                   <ServiceChoosing
@@ -112,10 +125,13 @@ const PersonalAccountMain = () => {
               </div>
               <InformationBlock
                 selectedServiceState={selectedServiceState}
-                selectedOperationState={selectedOperationState}
+                selectedOperationState={infoBlockState}
                 date={date}
                 time={time}
               />
+              <Button variant="primary" type="submit">
+                Wysłać
+              </Button>
             </Form>
           </div>
         </div>
