@@ -52,6 +52,7 @@ const PersonalAccountMain = () => {
       isSelected: true,
       selectedService: event.target.value,
     });
+
     setInfoBlockState({
       name: "",
       price: "",

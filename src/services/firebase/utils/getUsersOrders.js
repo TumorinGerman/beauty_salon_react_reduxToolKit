@@ -8,7 +8,6 @@ const getUsersOrders = async (date) => {
   if (docSnap.exists()) {
     return docSnap.data();
   } else {
-    // doc.data() will be undefined in this case
     console.log("No such document!");
     return null;
   }

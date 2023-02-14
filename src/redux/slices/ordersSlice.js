@@ -6,10 +6,7 @@ export const fetchOrders = createAsyncThunk(
   "orders/fetchOrders",
   async (orderDate) => {
     const ordersForThisDay = await getUsersOrders(orderDate);
-    console.log(ordersForThisDay);
-    if (ordersForThisDay) {
-      return ordersForThisDay;
-    }
+    return ordersForThisDay ? ordersForThisDay.orders : [];
   }
 );
 
