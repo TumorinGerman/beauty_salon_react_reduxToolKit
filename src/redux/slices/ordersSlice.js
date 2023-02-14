@@ -1,9 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import addDocToCollectionUserOrder from "../../services/firebase/utils/addDocToCollectionUserOrders";
+import getUsersOrders from "../../services/firebase/utils/getUsersOrders";
 
-export const fetchOrders = createAsyncThunk("orders/fetchOrders", async () => {
-  return null;
-});
+export const fetchOrders = createAsyncThunk(
+  "orders/fetchOrders",
+  async (orderDate) => {
+    const ordersForThisDay = await getUsersOrders(orderDate);
+    console.log(ordersForThisDay);
+    if (ordersForThisDay) {
+      return ordersForThisDay;
+    }
+  }
+);
 
 export const pushOrder = createAsyncThunk(
   "orders/pushOrder",

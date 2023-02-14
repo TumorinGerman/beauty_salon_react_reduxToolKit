@@ -6,6 +6,7 @@ import moment from "moment";
 
 import { fetchServices } from "../../redux/slices/servicesSlice";
 import { pushOrder } from "../../redux/slices/ordersSlice";
+import { fetchOrders } from "../../redux/slices/ordersSlice";
 import PersonalAccountMenu from "./PersonalAccountMenu";
 import TimeChoosing from "./TimeChoosing";
 import OperationChoosing from "./OperationChoosing";
@@ -80,6 +81,13 @@ const PersonalAccountMain = () => {
       setOperationsList(currService[0].services);
     }
   }, [selectedServiceState]);
+
+  useEffect(() => {
+    const orderDate = moment(date, "MM-DD-YYYY")
+      .format("ddd MMM D YYYY")
+      .toString();
+    dispatch(fetchOrders(orderDate));
+  }, [date]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
