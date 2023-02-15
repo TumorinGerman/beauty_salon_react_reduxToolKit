@@ -139,6 +139,7 @@ const PersonalAccountMain = () => {
                       minDate={new Date()}
                       minDetail={"month"}
                       locale={"pl-PL"}
+                      tileDisabled={({ date }) => [0].includes(date.getDay())} //disable Sunday, if we will need to disable saturday too - [6, 0]
                     />
                   </div>
                   <div className="time_container">
