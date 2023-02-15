@@ -2,7 +2,7 @@ import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ isHorizontal }) => {
   const menuItems = [
     { id: 0, name: "Zabiegi", link: "/services" },
     { id: 1, name: "Promocje", link: "/" },
@@ -12,7 +12,7 @@ const HeaderMenu = () => {
 
   return (
     <div className="main_menu">
-      <ListGroup horizontal>
+      <ListGroup horizontal={isHorizontal}>
         {menuItems.map(({ id, name, link }) => {
           return (
             <ListGroup.Item action="true" href="" variant="success" key={id}>

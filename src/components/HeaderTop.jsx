@@ -41,7 +41,7 @@ const HeaderTop = () => {
       <Link to="/">
         <div className="logo-box">
           <div className="img-box">
-            <img src="./img/logo.png" loading="lazy" alt="logo" />
+            <img src="./img/logo.jpg" loading="lazy" alt="logo" />
           </div>
           <div className="text-box">
             <p>Gabinet</p>

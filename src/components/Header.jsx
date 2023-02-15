@@ -11,7 +11,7 @@ const Header = () => {
           <HeaderTop />
         </div>
         <div className="header_bottom">
-          <HeaderMenu />
+          <HeaderMenu isHorizontal={true} />
         </div>
       </div>
     </div>
