@@ -6,7 +6,9 @@
     display: flex;
     justify-content: space-between;
     img {
-      max-width: 150px;
+      max-width: 165px;
+      border-radius: 10px;
+      box-shadow: 0 0px 25px 0 #4a4d63;
     }
 
     .main_menu {
