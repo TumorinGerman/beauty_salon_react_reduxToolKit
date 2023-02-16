@@ -12,6 +12,14 @@ const Footer = () => {
           <HeaderMenu />
         </div>
       </div>
+      <div className="footer_bottom">
+        <div className="footer_copyright">
+          <span className="copyright_years">© 2022-2023, </span>
+          <a href="https://github.com/TumorinGerman" className="copyright_name">
+            Tumorin German
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

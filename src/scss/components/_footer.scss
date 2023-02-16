@@ -1,6 +1,6 @@
 .footer {
-  padding: 40px 0px;
-  background-color: #e9f0f4;
+  padding-top: 40px;
+  background-color: #11829d;
 
   .content {
     display: flex;
@@ -8,11 +8,14 @@
     img {
       max-width: 165px;
       border-radius: 10px;
-      box-shadow: 0 0px 25px 0 #4a4d63;
+      box-shadow: 0 0px 25px 0 #f8f9fa;
     }
 
     .main_menu {
       max-width: 300px;
+      .list-group {
+        min-width: 165px;
+      }
 
       button {
         text-align: center;
@@ -22,5 +25,17 @@
         text-decoration: none;
       }
     }
+  }
+
+  .footer_bottom {
+    color: azure;
+    font-size: 14px;
+    margin-top: 20px;
+    align-items: center;
+    display: flex;
+    height: 48px;
+    justify-content: space-between;
+    padding: 0;
+    background-color: #0c0863;
   }
 }
