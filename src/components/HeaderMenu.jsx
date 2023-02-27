@@ -7,7 +7,7 @@ const HeaderMenu = ({ isHorizontal }) => {
     { id: 0, name: "Zabiegi", link: "/services" },
     { id: 1, name: "Promocje", link: "/" },
     { id: 2, name: "Сenniki", link: "/price" },
-    { id: 3, name: "Кontakty", link: "/" },
+    { id: 3, name: "Кontakty", link: "/contact" },
   ];
 
   return (

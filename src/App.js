@@ -8,6 +8,7 @@ import Price from "./pages/Price";
 import CreateNewClient from "./components/CreateNewClient";
 import PasswordReset from "./components/PasswordReset";
 import PersonalAccountMain from "./components/personal_account/PersonalAccountMain";
+import Contact from "./pages/Contact";
 
 import Test from "./components/Test";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/personal_account" element={<PersonalAccountMain />} />
           <Route path="/create_new_client" element={<CreateNewClient />} />
           <Route path="/reset_password_form" element={<PasswordReset />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>
