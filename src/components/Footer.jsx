@@ -26,7 +26,7 @@ const Footer = () => {
               <div className="text_box">
                 <span>
                   <p>Poznań,</p>
-                  <p>os. Kosmonautów 25/58</p>
+                  <p>os. Kosmonautów 25</p>
                 </span>
               </div>
             </div>

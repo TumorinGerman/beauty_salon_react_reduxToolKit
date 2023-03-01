@@ -55,7 +55,7 @@ const HeaderTop = () => {
         </div>
         <div className="text-box">
           <p>Poznań,</p>
-          <p>os Kosmonautów 25/58</p>
+          <p>os Kosmonautów 25</p>
         </div>
       </div>
       <div className="timeWork-box">
