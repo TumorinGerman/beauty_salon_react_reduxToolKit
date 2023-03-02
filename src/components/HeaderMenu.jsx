@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const HeaderMenu = ({ isHorizontal }) => {
   const menuItems = [
     { id: 0, name: "Zabiegi", link: "/services" },
-    { id: 1, name: "Promocje", link: "/" },
+    { id: 1, name: "Promocje", link: "/promo" },
     { id: 2, name: "Сenniki", link: "/price" },
     { id: 3, name: "Кontakty", link: "/contact" },
   ];

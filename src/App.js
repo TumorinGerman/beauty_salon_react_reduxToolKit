@@ -9,6 +9,7 @@ import CreateNewClient from "./components/CreateNewClient";
 import PasswordReset from "./components/PasswordReset";
 import PersonalAccountMain from "./components/personal_account/PersonalAccountMain";
 import Contact from "./pages/Contact";
+import Promo from "./pages/Promo";
 
 import Test from "./components/Test";
 
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/promo" element={<Promo />} />
           <Route path="/price" element={<Price />} />
           <Route path="/personal_account" element={<PersonalAccountMain />} />
           <Route path="/create_new_client" element={<CreateNewClient />} />

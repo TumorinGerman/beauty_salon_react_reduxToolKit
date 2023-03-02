@@ -1,4 +1,5 @@
 import React from "react";
+import Spinner from "react-bootstrap/Spinner";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 const Map = () => {
@@ -29,7 +30,9 @@ const Map = () => {
     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
       <Marker position={LatLng} />
     </GoogleMap>
-  ) : null;
+  ) : (
+    <Spinner />
+  );
 };
 
 export default Map;
