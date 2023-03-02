@@ -7,6 +7,7 @@ const getImgFromStorage = async (imgRef) => {
 
   return await getDownloadURL(httpsReference)
     .then((url) => {
+      console.log(url);
       return url;
     })
     .catch((error) => {
@@ -14,15 +15,19 @@ const getImgFromStorage = async (imgRef) => {
       // https://firebase.google.com/docs/storage/web/handle-errors
       switch (error.code) {
         case "storage/object-not-found":
+          console.log("storage/object-not-found");
           // File doesn't exist
           break;
         case "storage/unauthorized":
+          console.log("storage/unauthorized");
           // User doesn't have permission to access the object
           break;
         case "storage/canceled":
+          console.log("storage/canceled");
           // User canceled the upload
           break;
         case "storage/unknown":
+          console.log("storage/unknown");
           // Unknown error occurred, inspect the server response
           break;
         default:

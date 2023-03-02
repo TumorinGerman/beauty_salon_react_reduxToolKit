@@ -1,0 +1,20 @@
+[
+    {
+      "id": 0,
+      "title": "Czekamy na nowych klientów!",
+      "text": "Każdy nowy klient - 10% rabatu na pierwszą wizytę. Czekając na ciebie.",
+      "img": "/img/promo/promo_boxes.jpg"
+    },
+    {
+      "id": 1,
+      "title": "Rejestr!",
+      "text": "Zarejestruj się na stronie i otrzymaj 15% zniżki. Możesz także zaplanować własną wizytę.",
+      "img": "/img/promo/promo_sale.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Zapisz się do nas.!",
+      "text": "Subskrybuj nas w sieciach społecznościowych i uzyskaj stałą zniżkę 10%.",
+      "img": "/img/promo/promo_social.jpg"
+    }
+]
