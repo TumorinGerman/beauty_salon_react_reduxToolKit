@@ -50,8 +50,12 @@
 
 .offcanvas {
   a {
-    color: white;
+    color: black;
     text-decoration: none;
+  }
+  .offcanvas-body {
+    background-color: $gray-line;
+    color: $green-text;
   }
 }
 
