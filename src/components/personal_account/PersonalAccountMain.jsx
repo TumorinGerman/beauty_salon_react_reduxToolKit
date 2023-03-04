@@ -32,6 +32,7 @@ const PersonalAccountMain = () => {
 
   const dispatch = useDispatch();
   const { services, isLoaded } = useSelector((state) => state.services);
+  const { isLogined } = useSelector((state) => state.userAuth);
   const { isPushed } = useSelector((state) => state.orders);
 
   const getServices = async () => {
@@ -111,55 +112,57 @@ const PersonalAccountMain = () => {
       {showMessage ? (
         <ModalInformation message={"Twoja aplikacja została wysłana"} />
       ) : null}
-      <div className="container">
-        <div className="centre_container">
-          <div className="account_container">
-            <div className="button_menu">
-              <PersonalAccountMenu />
-            </div>
-            <div className="content_container">
-              <Form onSubmit={handleSubmit}>
-                <div className="common_container">
-                  <div className="check-services_container">
-                    <ServiceChoosing
-                      selectedServiceState={selectedServiceState}
-                      servicesList={servicesList}
-                      handleChangeService={handleChangeService}
-                    />
-                    <OperationChoosing
-                      selectedServiceState={selectedServiceState}
-                      operationsList={operationsList}
-                      handleClickOperation={handleClickOperation}
-                    />
+      {isLogined && (
+        <div className="container">
+          <div className="centre_container">
+            <div className="account_container">
+              <div className="button_menu">
+                <PersonalAccountMenu />
+              </div>
+              <div className="content_container">
+                <Form onSubmit={handleSubmit}>
+                  <div className="common_container">
+                    <div className="check-services_container">
+                      <ServiceChoosing
+                        selectedServiceState={selectedServiceState}
+                        servicesList={servicesList}
+                        handleChangeService={handleChangeService}
+                      />
+                      <OperationChoosing
+                        selectedServiceState={selectedServiceState}
+                        operationsList={operationsList}
+                        handleClickOperation={handleClickOperation}
+                      />
+                    </div>
+                    <div className="calendar-container">
+                      <Calendar
+                        onChange={setDate}
+                        value={date}
+                        minDate={new Date()}
+                        minDetail={"month"}
+                        locale={"pl-PL"}
+                        tileDisabled={({ date }) => [0].includes(date.getDay())} //disable Sunday, if we will need to disable saturday too - [6, 0]
+                      />
+                    </div>
+                    <div className="time_container">
+                      <TimeChoosing setTime={setTime} />
+                    </div>
                   </div>
-                  <div className="calendar-container">
-                    <Calendar
-                      onChange={setDate}
-                      value={date}
-                      minDate={new Date()}
-                      minDetail={"month"}
-                      locale={"pl-PL"}
-                      tileDisabled={({ date }) => [0].includes(date.getDay())} //disable Sunday, if we will need to disable saturday too - [6, 0]
-                    />
-                  </div>
-                  <div className="time_container">
-                    <TimeChoosing setTime={setTime} />
-                  </div>
-                </div>
-                <InformationBlock
-                  selectedServiceState={selectedServiceState}
-                  selectedOperationState={infoBlockState}
-                  date={date}
-                  time={time}
-                />
-                <Button variant="primary" type="submit">
-                  Wysłać
-                </Button>
-              </Form>
+                  <InformationBlock
+                    selectedServiceState={selectedServiceState}
+                    selectedOperationState={infoBlockState}
+                    date={date}
+                    time={time}
+                  />
+                  <Button variant="primary" type="submit">
+                    Wysłać
+                  </Button>
+                </Form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
