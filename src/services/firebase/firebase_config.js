@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getStorage } from "firebase/storage";
+// import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCZnnYmpMOxZDDPLX0Notzl5QICKNptU6I",
@@ -24,4 +24,4 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 // Initialize Cloud Storage and get a reference to the service
-export const storage = getStorage(app);
+// export const storage = getStorage(app);
