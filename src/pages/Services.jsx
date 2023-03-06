@@ -27,7 +27,6 @@ const Services = () => {
         massage: !isOpen.massage,
       });
     }
-    console.table(isOpen);
   };
 
   return (

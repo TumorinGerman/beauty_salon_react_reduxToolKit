@@ -80,7 +80,9 @@ const OrderForm = () => {
 
   return (
     <Form className="order_form_guest" ref={form} onSubmit={submitHandle}>
-      {modalShow ? <ModalInformation message={message} /> : null}
+      {modalShow ? (
+        <ModalInformation message={message} isDone={setModalShow} />
+      ) : null}
       <h4>
         Możesz wypełnić formularz, a my oddzwonimy w celu umówienia wizyty.
       </h4>

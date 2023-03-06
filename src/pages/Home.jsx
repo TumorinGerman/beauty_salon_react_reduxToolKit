@@ -14,9 +14,11 @@ const Home = () => {
               Dbamy o Twoją urodę i zdrowie z najwyższym profesjonalizmem i
               uwagą
             </h1>
-            <ul>
-              <li>Что-нибудь умное</li>
-              <li>Что-нибудь умное</li>
+            <ul className="slogans">
+              <li>Uroda zaczyna się tutaj: Twoja droga do doskonałości.</li>
+              <li>Piękna skóra to klucz do pewności siebie</li>
+              <li>Zapomnij o stresie, pozwól nam zadbać o Twoje piękno</li>
+              <li>Odkryj swoją urodę w pełnym blasku z naszym salonem</li>
             </ul>
           </div>
         </div>

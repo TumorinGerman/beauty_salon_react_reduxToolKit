@@ -28,8 +28,8 @@ const OrderFormUser = () => {
             <span>Zaloguj się</span>
           </Button>
         )}
-        <p>Jeśli nie masz konta - kliknij "Utwórz nowego klienta"</p>
-        <Link to="/create_new_client">Utwórz nowego klienta</Link>
+        <p>Jeśli nie masz konta - kliknij "Utwórz nowe konto"</p>
+        <Link to="/create_new_client">Utwórz nowe konto</Link>
       </Form>
       {showLoginForm ? (
         <FirebaseLogin

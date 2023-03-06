@@ -18,10 +18,10 @@ const InformationBlock = ({
         {selectedOperationState.name}, cena: {selectedOperationState.price}zl
       </p>
       <p className="calendar_text">
-        <span className="bold">Date:</span> {date.toDateString()}
+        <span className="bold">Dzień:</span> {date.toDateString()}
       </p>
       <p className="calendar_text">
-        <span className="bold">Time:</span> {time}
+        <span className="bold">Godzina:</span> {time}
       </p>
     </div>
   );

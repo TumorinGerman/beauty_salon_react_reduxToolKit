@@ -8,7 +8,6 @@ import promoList from "../promo.json";
 // import getImgFromStorage from "../services/firebase/utils/getImgFromStorage";
 
 const Promo = () => {
-  console.log(promoList);
   // functionality for dowloading images from backend
 
   // const feachPromoList = async () => {

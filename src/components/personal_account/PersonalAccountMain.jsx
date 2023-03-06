@@ -110,7 +110,10 @@ const PersonalAccountMain = () => {
   return (
     <>
       {showMessage ? (
-        <ModalInformation message={"Twoja aplikacja została wysłana"} />
+        <ModalInformation
+          message={"Twoja wizyta jest planowana. Dziękuję."}
+          isDone={setShowMessage}
+        />
       ) : null}
       {isLogined && (
         <div className="container">

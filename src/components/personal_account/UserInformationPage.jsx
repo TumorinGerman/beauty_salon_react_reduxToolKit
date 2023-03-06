@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Button, Form, FloatingLabel, Row, Col } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { Button, Form, Row, Col } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
 import PersonalAccountMenu from "./PersonalAccountMenu";
-import CreateNewClient from "../CreateNewClient";
+import { addUserInfo } from "../../redux/slices/userSlice";
+import addDocToCollectionUser from "../../services/firebase/utils/addDocToCollectionUser";
+import ModalInformation from "../ModalInformation";
 
 const UserInformationPage = () => {
-  const { isLogined, userInformation } = useSelector((state) => state.userAuth);
+  const dispatch = useDispatch();
+  const { isLogined, activeUserId, userInformation } = useSelector(
+    (state) => state.userAuth
+  );
   const [values, setValues] = useState({});
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e) => {
     const nameOfProperties = e.target.id;
@@ -17,11 +23,16 @@ const UserInformationPage = () => {
     setValues(userInfoUpdate);
   };
 
-  console.log(userInformation);
-  console.log(values);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      dispatch(addUserInfo(values));
+      await addDocToCollectionUser(activeUserId, values);
+      setIsSuccess(true);
+    } catch {
+      alert("Can't change your data. Sorry.");
+      setIsSuccess(false);
+    }
   };
 
   useEffect(() => {
@@ -118,6 +129,12 @@ const UserInformationPage = () => {
                   Submit
                 </Button>
               </Form>
+              {isSuccess && (
+                <ModalInformation
+                  message={"Twoje dane zostały pomyślnie zaktualizowane."}
+                  isDone={setIsSuccess}
+                />
+              )}
             </div>
           </div>
         </div>

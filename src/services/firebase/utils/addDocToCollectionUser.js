@@ -6,6 +6,7 @@ const addDocToCollectionUser = async (userId, userInfo) => {
     await setDoc(doc(db, "users", userId), userInfo);
   } catch (e) {
     console.error("Error adding document: ", e);
+    alert("Can't change the information");
   }
 };
 

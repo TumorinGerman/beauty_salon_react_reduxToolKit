@@ -4,8 +4,11 @@ import Modal from "react-bootstrap/Modal";
 
 const ModalInformation = (props) => {
   const [modalShow, setModalShow] = React.useState(true);
-  const onHide = () => setModalShow(false);
-  const { message } = props;
+  const { message, isDone } = props;
+  const onHide = () => {
+    isDone(false);
+    setModalShow(false);
+  };
 
   return (
     <Modal
