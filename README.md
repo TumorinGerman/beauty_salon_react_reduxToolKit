@@ -1,9 +1,9 @@
 
 # Technology stack:
 - React
-- Redux Toolkit
 - React Router
 - React bootstrap
+- Redux Toolkit
 - SCSS
 - Backend Firebase
 
