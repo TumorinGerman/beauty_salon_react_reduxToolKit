@@ -43,7 +43,7 @@ const HeaderTop = () => {
           <div className="img-box">
             <img src="./img/logo.jpg" loading="lazy" alt="logo" />
           </div>
-          <div className="text-box">
+          <div className="text-box textBox_logo">
             <p>Gabinet</p>
             <p>kosmetyczny</p>
           </div>

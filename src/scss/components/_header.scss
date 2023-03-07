@@ -15,6 +15,9 @@
 
     @media (max-width: 600px) {
       flex-direction: column;
+      .textBox_logo {
+        display: none;
+      }
     }
     .text-box {
       padding: 0 0 0 5px;
