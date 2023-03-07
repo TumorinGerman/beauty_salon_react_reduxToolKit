@@ -1,11 +1,19 @@
-
+https://beauty-salon-6f4ac.web.app/
 # Technology stack:
 - React
-- Redux Toolkit
 - React Router
 - React bootstrap
+- Redux Toolkit
 - SCSS
 - Backend Firebase
+
+Main application features:
+- Create new Users with e-mail confirmation.
+- The user can send an email message to the administrator from the site.
+- If user is logged in, he can choose the day and time of reception, as well as the necessary services. If some days / hours are busy, they will not be available for selection.
+- He can also change previously entered personal data.
+
+![Image alt](https://github.com/TumorinGerman/beauty_salon_react_reduxToolKit/blob/master/screeshot.png)
 
 # Goal of the project
 Website for my wife. Internet service for advertising and ordering beauty services.
