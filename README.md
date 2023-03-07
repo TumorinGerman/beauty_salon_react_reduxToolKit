@@ -1,4 +1,4 @@
-https://beauty-salon-6f4ac.web.app/
+https://beauty-salon-vert.vercel.app/
 # Technology stack:
 - React
 - React Router
